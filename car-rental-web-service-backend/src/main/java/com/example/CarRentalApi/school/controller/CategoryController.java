@@ -26,7 +26,6 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getCategories(){
         return ResponseEntity.ok(categoryService.getCategories());
     }
-    //statusy http
     @PostMapping
     public void addNewCategory(@RequestBody Category category)
     {

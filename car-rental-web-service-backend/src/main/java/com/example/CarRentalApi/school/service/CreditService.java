@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.service;
 
+import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.model.Student;
 import com.example.CarRentalApi.school.repository.CreditRepository;
@@ -18,25 +19,26 @@ public class CreditService {
     private final StudentRepository studentRepository;
 
     @Autowired
-    public CreditService(CreditRepository creditRepository,StudentRepository studentRepository) {
+    public CreditService(CreditRepository creditRepository, StudentRepository studentRepository) {
         this.creditRepository = creditRepository;
         this.studentRepository = studentRepository;
     }
 
-    public List<Credit> getCredits(){
+    public List<Credit> getCredits() {
         return creditRepository.findAll();
 
     }
 
+    public void addNewCredit(Credit credit) {
+        creditRepository.save(credit);
+    }
+
     public void deleteCredit(Long creditId) {
         boolean exist = creditRepository.existsById(creditId);
-        if(!exist){
-            throw new IllegalStateException(
-                    "credit with id " + creditId + "does not exist");
+        if (!exist) {
+            throw new IllegalStateException("credit with id " + creditId + "does not exist");
         }
         creditRepository.deleteById(creditId);
     }
-
-
 
 }

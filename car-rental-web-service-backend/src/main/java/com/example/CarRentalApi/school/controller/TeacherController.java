@@ -23,7 +23,6 @@ public class TeacherController {
     public ResponseEntity<List<Teacher>> getTeachers(){
         return ResponseEntity.ok(teacherService.getTeachers());
     }
-    //statusy http
     @PostMapping
     public void addNewTeacher(@RequestBody Teacher teacher)
     {

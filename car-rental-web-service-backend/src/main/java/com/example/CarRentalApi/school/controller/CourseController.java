@@ -17,12 +17,11 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Course>> getCourses(){
         //return ResponseEntity.ok(courseService.getCourses());
         return ResponseEntity.ok(courseService.getCourses());
     }
-    //statusy http
     @PostMapping
     public void addNewCourse(@RequestBody Course course)
     {

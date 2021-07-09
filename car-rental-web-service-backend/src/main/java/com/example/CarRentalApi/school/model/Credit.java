@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "Credit")
 public class Credit {
 
     @Id
@@ -21,49 +21,39 @@ public class Credit {
     private Long id;
     private Integer Grade;
     private Boolean Attempt;
-    private Long studentid;
-    private Long courseid;
+    private Long student_id;
+    private Long course_id;
 
     public Credit() {
     }
 
-    public Credit(Long id, Integer grade, Boolean attempt, Long studentId, Long courseid) {
+    public Credit(Long id, Integer grade, Boolean attempt) {
         this.id = id;
         Grade = grade;
         Attempt = attempt;
-        this.studentid = studentId;
-        this.courseid = courseid;
+
     }
 
-    public Credit(Integer grade, Boolean attempt, Long studentId, Long courseid) {
+    public Credit(Integer grade, Boolean attempt) {
         Grade = grade;
         Attempt = attempt;
-        this.studentid = studentId;
-        this.courseid = courseid;
+
     }
 
-    public Long getStudentid() {
-        return studentid;
+    public Long getStudent_id() {
+        return student_id;
     }
 
-    public void setStudentid(Long studentid) {
-        this.studentid = studentid;
+    public void setStudent_id(Long student_id) {
+        this.student_id = student_id;
     }
 
-    public Long getCourseid() {
-        return courseid;
+    public Long getCourse_id() {
+        return course_id;
     }
 
-    public void setCourseid(Long courseid) {
-        this.courseid = courseid;
-    }
-
-    public Long getStudentId() {
-        return studentid;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentid = studentId;
+    public void setCourse_id(Long course_id) {
+        this.course_id = course_id;
     }
 
     public Long getId() {

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "Course")
 public class Course {
 
     @Id
@@ -21,30 +21,36 @@ public class Course {
     )
     private Long id;
     private String name;
-    private Long teacherid;
+    private Long teacher_id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "creditid")
-    private Set<Credit> credits;
-    {
-        this.credits = new HashSet<>();
-    }
+    @JoinColumn(name= "credit_id")
+    private Set<Credit> credits = new HashSet<>();
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name= "categoryid")
+    @JoinColumn(name= "category_id")
     private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+
 
     public Course() {
     }
 
-    public Course(String name, Long teacherid) {
+    public Course(String name) {
         this.name = name;
-        this.teacherid = teacherid;
     }
 
-    public Course(Long id, String name, Long teacherid) {
+    public Course(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.teacherid = teacherid;
 
     }
 
@@ -56,13 +62,7 @@ public class Course {
         this.credits = credits;
     }
 
-    public Category getCategory() {
-        return category;
-    }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public Long getId() {
         return id;
@@ -81,11 +81,11 @@ public class Course {
     }
 
     public Long getTeacherid() {
-        return teacherid;
+        return teacher_id;
     }
 
-    public void setTeacherid(Long teacherid) {
-        this.teacherid = teacherid;
+    public void setTeacherid(Long teacherId) {
+        this.teacher_id = teacher_id;
     }
 }
 

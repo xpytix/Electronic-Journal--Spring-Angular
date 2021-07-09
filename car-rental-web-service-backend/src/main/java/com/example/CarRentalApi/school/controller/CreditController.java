@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,15 @@ public class CreditController {
     }
 
 
-
-    public ResponseEntity<List<Credit>> getCredits(){
+    @GetMapping
+    public ResponseEntity<List<Credit>> getCredit(){
+        //return ResponseEntity.ok(creditService.getCredit());
         return ResponseEntity.ok(creditService.getCredits());
+    }
+    @PostMapping
+    public void addNewCredit(@RequestBody Credit credit)
+    {
+        creditService.addNewCredit(credit);
     }
 
     @DeleteMapping(path = "{creditId}")

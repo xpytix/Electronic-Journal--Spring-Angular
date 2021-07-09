@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "Student")
 public class Student {
 
     @Id
@@ -25,11 +25,9 @@ public class Student {
     private String DateOfBirth;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "studentid")
-    private Set<Credit> credits;
-    {
-        this.credits = new HashSet<>();
-    }
+    @JoinColumn(name= "student_id")
+    private Set<Credit> credits = new HashSet<>();
+
 
     public Student(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;

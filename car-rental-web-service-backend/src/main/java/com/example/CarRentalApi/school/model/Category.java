@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table
-public class Category {
+@Table(name = "Category")
+public class
+Category {
 
     @Id
     @SequenceGenerator(
@@ -23,16 +24,17 @@ public class Category {
     )
     private Long id;
     private String name;
+    private Long course_id;
 
-    @OneToMany(targetEntity=Course.class, mappedBy="category",cascade = CascadeType.ALL)
-    private List<Course> courseList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private Set<Course> courses = new HashSet<>();
 
-    public List<Course> getCourseList() {
-        return courseList;
+    public Set<Course> getCourses() {
+        return courses;
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 
     public Category() {
@@ -59,6 +61,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public Long getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(Long course_id) {
+        this.course_id = course_id;
     }
 
 
