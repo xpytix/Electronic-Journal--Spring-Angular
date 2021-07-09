@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.service.CreditService;
@@ -23,19 +24,31 @@ public class CreditController {
 
 
     @GetMapping
-    public ResponseEntity<List<Credit>> getCredit(){
-        //return ResponseEntity.ok(creditService.getCredit());
-        return ResponseEntity.ok(creditService.getCredits());
+    public ResponseEntity<List<Credit>> getCredits() {
+        List<Credit> creditList = creditService.getCredits();
+        if (creditList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(creditList);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(creditList);
     }
+
     @PostMapping
-    public void addNewCredit(@RequestBody Credit credit)
+    public ResponseEntity addNewCredit(@RequestBody Credit credit)
     {
         creditService.addNewCredit(credit);
+        return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Credit has been created!").build();
+
     }
 
     @DeleteMapping(path = "{creditId}")
-    public void deleteCredit(@PathVariable("creditId") Long creditId){
+    public ResponseEntity deleteCredit(@PathVariable("creditId") Long creditId){
         creditService.deleteCredit(creditId);
-    }
+        return ResponseEntity.status(HttpStatus.OK).header("Info", "Credit has been deleted!").build();
 
+    }
+    @PutMapping
+    public ResponseEntity updateCredit(@RequestBody Credit credit) {
+        creditService.updateCredit(credit);
+        return ResponseEntity.status(HttpStatus.OK).header("Info", "Credit has been updated!").build();
+    }
 }

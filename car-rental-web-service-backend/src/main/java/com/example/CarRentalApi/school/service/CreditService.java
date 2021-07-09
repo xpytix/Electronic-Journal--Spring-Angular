@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.service;
 
+import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.model.Student;
@@ -41,4 +42,14 @@ public class CreditService {
         creditRepository.deleteById(creditId);
     }
 
+    public void updateCredit(Credit credit) {
+        Optional<Credit> exist = creditRepository.findById(credit.getId());
+
+        Credit creditToUpdate = exist.orElseThrow(
+                () -> new IllegalStateException("category with id " + credit.getId() + "does not exist"));
+        creditToUpdate.setGrade(credit.getGrade());
+        creditToUpdate.setAttempt(credit.getAttempt());
+
+        creditRepository.save(creditToUpdate);
+    }
 }

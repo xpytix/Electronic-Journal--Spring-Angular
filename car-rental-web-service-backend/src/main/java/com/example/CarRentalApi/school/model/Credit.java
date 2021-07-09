@@ -19,42 +19,34 @@ public class Credit {
             generator = "school_sequence"
     )
     private Long id;
-    private Integer Grade;
-    private Boolean Attempt;
-    private Long student_id;
-    private Long course_id;
+    private Integer grade;
+    private Boolean attempt;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_course")
+    private Course courseCredit;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "credit")
+    private Set<Student> students = new HashSet<>();
+
 
     public Credit() {
     }
 
     public Credit(Long id, Integer grade, Boolean attempt) {
         this.id = id;
-        Grade = grade;
-        Attempt = attempt;
+        this.grade = grade;
+        this.attempt = attempt;
 
     }
 
     public Credit(Integer grade, Boolean attempt) {
-        Grade = grade;
-        Attempt = attempt;
+        this.grade = grade;
+        this.attempt = attempt;
 
     }
 
-    public Long getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
-    }
-
-    public Long getCourse_id() {
-        return course_id;
-    }
-
-    public void setCourse_id(Long course_id) {
-        this.course_id = course_id;
-    }
 
     public Long getId() {
         return id;
@@ -65,18 +57,18 @@ public class Credit {
     }
 
     public Integer getGrade() {
-        return Grade;
+        return grade;
     }
 
     public void setGrade(Integer grade) {
-        Grade = grade;
+        grade = grade;
     }
 
     public Boolean getAttempt() {
-        return Attempt;
+        return attempt;
     }
 
     public void setAttempt(Boolean attempt) {
-        Attempt = attempt;
+        attempt = attempt;
     }
 }

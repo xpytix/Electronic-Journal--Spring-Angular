@@ -1,8 +1,10 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.model.Student;
 import com.example.CarRentalApi.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +23,32 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<List<Student>> getStudent(){
-        return ResponseEntity.ok(studentService.getStudents());
+        List<Student> studentList = studentService.getStudents();
+        if (studentList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentList);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(studentList);
+
     }
     @PostMapping
-    public void registerNewStudent(@RequestBody Student student)
+    public ResponseEntity registerNewStudent(@RequestBody Student student)
     {
         studentService.addNewStudent(student);
+        return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
+
     }
 
     @DeleteMapping(path = "{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Long studentId){
+    public ResponseEntity deleteStudent(@PathVariable("studentId") Long studentId){
         studentService.deleteStudent(studentId);
+        return ResponseEntity.status(HttpStatus.OK).header("Info", "Student has been deleted!").build();
+
     }
     @PutMapping
-    public void updateStudent( @RequestBody Student student) {
+    public ResponseEntity updateStudent(@RequestBody Student student) {
         studentService.updateStudent(student);
+        return ResponseEntity.status(HttpStatus.OK).header("Info", "Student has been updated!").build();
+
     }
 
 }

@@ -20,13 +20,14 @@ public class Teacher {
     )
     private Long id;
     private String email;
-    private String FirstName;
-    private String LastName;
-    private String DateOfBirth;
-    @OneToMany
-    @JoinColumn(name= "teacher_id")
-    private Set<Course> courses = new HashSet<>();
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_course", nullable = false)
+
+    private Course courseTeacher;
 
 
     public Teacher() {
@@ -35,16 +36,16 @@ public class Teacher {
     public Teacher(Long id, String email, String firstName, String lastName, String dateOfBirth) {
         this.id = id;
         this.email = email;
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Teacher(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Long getId() {
@@ -64,26 +65,26 @@ public class Teacher {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        lastName = lastName;
     }
 
     public String getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        dateOfBirth = dateOfBirth;
     }
 }

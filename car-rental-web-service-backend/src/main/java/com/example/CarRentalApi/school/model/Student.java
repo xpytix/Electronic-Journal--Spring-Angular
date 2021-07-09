@@ -20,28 +20,33 @@ public class Student {
     )
     private Long id;
     private String email;
-    private String FirstName;
-    private String LastName;
-    private String DateOfBirth;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name= "student_id")
-    private Set<Credit> credits = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_student", nullable = false)
+
+    private Credit credit;
+
+
+
 
 
     public Student(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Student(Long id, String email, String firstName, String lastName, String dateOfBirth) {
         this.id = id;
         this.email = email;
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Student() {
@@ -64,27 +69,28 @@ public class Student {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        lastName = lastName;
     }
 
     public String getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        dateOfBirth = dateOfBirth;
     }
+
 }
 

@@ -45,9 +45,7 @@ public class CourseService {
         Course courseToUpdate = exist.orElseThrow(()-> new IllegalStateException(
                 "course with id " + course.getId() + "does not exist")
         );
-
         courseToUpdate.setName(course.getName());
-        courseToUpdate.setTeacherid(course.getTeacherid());
 
     }
 }
