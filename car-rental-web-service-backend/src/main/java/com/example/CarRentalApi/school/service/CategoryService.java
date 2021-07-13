@@ -2,6 +2,7 @@ package com.example.CarRentalApi.school.service;
 
 import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.model.Student;
+import com.example.CarRentalApi.school.model.dto.CategoryDto;
 import com.example.CarRentalApi.school.repository.CategoryRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,8 +23,11 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> getCategories() {
+        return categoryRepository
+                .findAll()
+                .stream().map(category ->  category.mapCourseToDtoWithoutCategory()).collect(Collectors.toList());
+
     }
 
     public void addNewCategory(Category category) {

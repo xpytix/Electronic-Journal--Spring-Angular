@@ -1,7 +1,7 @@
 package com.example.CarRentalApi.school.controller;
 
-import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.model.Student;
+import com.example.CarRentalApi.school.model.dto.StudentDto;
 import com.example.CarRentalApi.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +22,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudent(){
-        List<Student> studentList = studentService.getStudents();
-        if (studentList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(studentList);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(studentList);
+    public ResponseEntity<List<StudentDto>> getStudent(){
+        return ResponseEntity.ok(studentService.getStudents());
 
     }
     @PostMapping

@@ -1,12 +1,14 @@
 package com.example.CarRentalApi.school.service;
 
 import com.example.CarRentalApi.school.model.Student;
+import com.example.CarRentalApi.school.model.dto.StudentDto;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -20,8 +22,9 @@ public class StudentService {
     }
 
 
-    public List<Student> getStudents(){
-        return studentRepository.findAll();
+    public List<StudentDto> getStudents(){
+        return studentRepository.findAll()
+                .stream().map(student ->  student.mapStudentWithCredits()).collect(Collectors.toList());
 
     }
 
@@ -55,4 +58,5 @@ public class StudentService {
         studentRepository.save(studentToUpdate);
 
     }
+
 }

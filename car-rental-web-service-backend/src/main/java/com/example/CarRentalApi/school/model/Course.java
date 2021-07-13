@@ -1,38 +1,33 @@
 package com.example.CarRentalApi.school.model;
 
+import com.example.CarRentalApi.school.model.dto.CourseDto;
+import lombok.Data;
+
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
 @Table(name = "Course")
+@Data
 public class Course {
-
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "school_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
     private Long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseCredit")
-    private Set<Credit> credits = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseTeacher")
-    private Set<Teacher> teachers = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_category", nullable = false)
+     @OneToOne(mappedBy = "course")
+       private Credit credit;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
     private Category category;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public Course() {
     }
@@ -47,19 +42,34 @@ public class Course {
 
     }
 
-    public Long getId() {
-        return id;
+    // MAP TEACHER TO DTO
+    public CourseDto mapCourseToDtoWithoutTeacher() {
+        return CourseDto
+                .builder()
+                .name(getName())
+                .build();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public CourseDto mapCourseToDtoWithTeacher() {
+        return CourseDto
+                .builder()
+                .name(getName())
+                .teacher(getTeacher().mapTeacherToDtoWithoutCourse())
+                .build();
     }
 
-    public String getName() {
-        return name;
+    public CourseDto mapCourseToDtoWithOutCredit() {
+        return CourseDto
+                .builder()
+                .name(getName())
+                .build();
+    }
+    public CourseDto mapCourseToDtoWithoutCategory() {
+        return CourseDto
+                .builder()
+                .name(getName())
+                .build();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 }

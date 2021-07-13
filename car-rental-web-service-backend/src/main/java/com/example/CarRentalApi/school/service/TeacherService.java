@@ -1,12 +1,14 @@
 package com.example.CarRentalApi.school.service;
 
 import com.example.CarRentalApi.school.model.Teacher;
+import com.example.CarRentalApi.school.model.dto.TeacherDto;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
@@ -19,14 +21,15 @@ public class TeacherService {
     }
 
 
-    public List<Teacher> getTeachers(){
-        return teacherRepository.findAll();
+    public List<TeacherDto> getTeachers(){
+        return teacherRepository
+                .findAll()
+                .stream().map(teacher ->  teacher.mapTeacherToDtoWithCourse()).collect(Collectors.toList());
 
     }
 
     public void addNewTeacher(Teacher teacher) {
         teacherRepository.save(teacher);
-
     }
 
     public void deleteTeacher(Long teacherId) {
@@ -37,7 +40,6 @@ public class TeacherService {
         }
         teacherRepository.deleteById(teacherId);
     }
-
 
     public void updateTeacher(Teacher teacher) {
         Optional<Teacher> exist = teacherRepository.findById(teacher.getId());
@@ -54,4 +56,6 @@ public class TeacherService {
         teacherRepository.save(teacherToUpdate);
 
     }
+    // MAP TEACHER TO DTO
+
 }

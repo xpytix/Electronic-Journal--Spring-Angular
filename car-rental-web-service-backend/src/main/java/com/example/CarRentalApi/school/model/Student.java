@@ -1,38 +1,36 @@
 package com.example.CarRentalApi.school.model;
 
+import com.example.CarRentalApi.school.model.dto.StudentDto;
+import com.example.CarRentalApi.school.model.dto.TeacherDto;
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "Student")
+@Data
 public class Student {
 
     @Id
-    @SequenceGenerator(
-            name = "school_sequence",
-            sequenceName = "school_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "school_sequence"
-    )
+    @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
     private Long id;
     private String email;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
 
+    @OneToMany(mappedBy="student",cascade={CascadeType.ALL},orphanRemoval=true)
+    List<Credit> credits = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_student", nullable = false)
-
-    private Credit credit;
-
-
-
-
+    public void addCredit(Credit credit) {
+        credits.add(credit);
+        credit.setStudent(this);
+    }
 
     public Student(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
@@ -52,45 +50,15 @@ public class Student {
     public Student() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        lastName = lastName;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        dateOfBirth = dateOfBirth;
+    public StudentDto mapStudentWithCredits() {
+        return StudentDto
+                .builder()
+                .email(getEmail())
+                .firstName(getFirstName())
+                .lastName(getLastName())
+                .dateOfBirth(getLastName())
+                .credits(getCredits().stream().map(credit -> credit.mapCreditToDto()).collect(Collectors.toList()))
+                .build();
     }
 
 }
-

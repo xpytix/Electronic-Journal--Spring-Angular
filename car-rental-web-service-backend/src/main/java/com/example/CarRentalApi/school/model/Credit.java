@@ -1,34 +1,32 @@
 package com.example.CarRentalApi.school.model;
 
+import com.example.CarRentalApi.school.model.dto.CreditDto;
+import lombok.Data;
+
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "Credit")
+@Data
 public class Credit {
 
     @Id
-    @SequenceGenerator(
-            name = "school_sequence",
-            sequenceName = "school_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "school_sequence"
-    )
+    @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
     private Long id;
     private Integer grade;
     private Boolean attempt;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="student_id")
+    private Student student;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_course")
-    private Course courseCredit;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "credit")
-    private Set<Student> students = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
 
     public Credit() {
@@ -40,35 +38,24 @@ public class Credit {
         this.attempt = attempt;
 
     }
-
     public Credit(Integer grade, Boolean attempt) {
         this.grade = grade;
         this.attempt = attempt;
 
     }
-
-
-    public Long getId() {
-        return id;
+    public CreditDto mapCreditToDto() {
+        return CreditDto
+                .builder()
+                .grade(getGrade())
+                .attempt(getAttempt())
+                .build();
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        grade = grade;
-    }
-
-    public Boolean getAttempt() {
-        return attempt;
-    }
-
-    public void setAttempt(Boolean attempt) {
-        attempt = attempt;
+    public CreditDto mapCreditToDtoWithCourse() {
+        return CreditDto
+                .builder()
+                .grade(getGrade())
+                .attempt(getAttempt())
+                .course(getCourse().mapCourseToDtoWithOutCredit())
+                .build();
     }
 }

@@ -3,6 +3,9 @@ package com.example.CarRentalApi.school.service;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.model.Student;
+import com.example.CarRentalApi.school.model.Teacher;
+import com.example.CarRentalApi.school.model.dto.CourseDto;
+import com.example.CarRentalApi.school.model.dto.TeacherDto;
 import com.example.CarRentalApi.school.repository.CourseRepository;
 import com.example.CarRentalApi.school.repository.CreditRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -21,9 +25,9 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public List<Course> getCourses(){
-        return courseRepository.findAll();
-
+    public List<CourseDto> getCourses(){
+        return courseRepository.findAllWithFetch()
+                .stream().map(course ->  course.mapCourseToDtoWithTeacher()).collect(Collectors.toList());
     }
 
     public void deleteCourse(Long courseId) {
@@ -48,4 +52,5 @@ public class CourseService {
         courseToUpdate.setName(course.getName());
 
     }
+
 }

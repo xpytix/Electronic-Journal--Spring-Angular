@@ -1,8 +1,7 @@
 package com.example.CarRentalApi.school.controller;
 
-import com.example.CarRentalApi.school.model.Category;
-import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Credit;
+import com.example.CarRentalApi.school.model.dto.CreditDto;
 import com.example.CarRentalApi.school.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +23,13 @@ public class CreditController {
 
 
     @GetMapping
-    public ResponseEntity<List<Credit>> getCredits() {
-        List<Credit> creditList = creditService.getCredits();
-        if (creditList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(creditList);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(creditList);
+    public ResponseEntity<List<CreditDto>> getCredits() {
+        return ResponseEntity.ok(creditService.getCredits());
+    }
+
+    @GetMapping("/course")
+    public ResponseEntity<List<CreditDto>> getCreditsCourse() {
+        return ResponseEntity.ok(creditService.getCreditsCourse());
     }
 
     @PostMapping

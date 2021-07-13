@@ -1,70 +1,49 @@
 package com.example.CarRentalApi.school.model;
 
+import com.example.CarRentalApi.school.model.dto.CategoryDto;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "Category")
-public class
-Category {
+@Data
+public class Category {
 
     @Id
-    @SequenceGenerator(
-            name = "school_sequence",
-            sequenceName = "school_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "school_sequence"
-    )
+    @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
     private Long id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private Set<Course> courses = new HashSet<>();
+    @OneToMany(mappedBy="category",cascade={CascadeType.ALL},orphanRemoval=true)
+    List<Course> courses = new ArrayList<>();
 
-    public Set<Course> getCourses() {
-        return courses;
+    public void addCourse(Course course) {
+        courses.add(course);
+        course.setCategory(this);
     }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
     public Category() {
     }
 
     public Category(String name) {
         this.name = name;
     }
+
     public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Long getId() {
-        return id;
+    public CategoryDto mapCourseToDtoWithoutCategory() {
+        return CategoryDto
+                .builder()
+                .name(getName())
+                .courses(getCourses().stream().map(course -> course.mapCourseToDtoWithTeacher()).collect(Collectors.toList()))
+                .build();
+
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-
 }
-
-
