@@ -1,10 +1,8 @@
 package com.example.CarRentalApi.school.service;
 
-import com.example.CarRentalApi.school.model.Category;
-import com.example.CarRentalApi.school.model.Course;
+import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Credit;
-import com.example.CarRentalApi.school.model.Student;
-import com.example.CarRentalApi.school.model.dto.CreditDto;
+import com.example.CarRentalApi.school.dto.CreditDto;
 import com.example.CarRentalApi.school.repository.CreditRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +17,20 @@ import java.util.stream.Collectors;
 public class CreditService {
 
     private final CreditRepository creditRepository;
+    private final MapStructMapper mapStructMapper;
 
     @Autowired
-    public CreditService(CreditRepository creditRepository, StudentRepository studentRepository) {
+    public CreditService(CreditRepository creditRepository, StudentRepository studentRepository, MapStructMapper mapStructMapper) {
         this.creditRepository = creditRepository;
+        this.mapStructMapper = mapStructMapper;
     }
 
     public List<CreditDto> getCredits() {
-        return creditRepository.findAll()
-                .stream().map(credit ->  credit.mapCreditToDto()).collect(Collectors.toList());
+        return mapStructMapper.creditsToCreditsDto(
+                creditRepository.findAll());
     }
 
-    public List<CreditDto> getCreditsCourse() {
-        return creditRepository.findAllCreditsWithFetch()
-                .stream().map(credit ->  credit.mapCreditToDtoWithCourse()).collect(Collectors.toList());
-    }
+
     public void addNewCredit(Credit credit) {
         creditRepository.save(credit);
     }

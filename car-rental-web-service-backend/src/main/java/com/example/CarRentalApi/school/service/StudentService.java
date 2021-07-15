@@ -1,31 +1,33 @@
 package com.example.CarRentalApi.school.service;
 
+import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Student;
-import com.example.CarRentalApi.school.model.dto.StudentDto;
+import com.example.CarRentalApi.school.dto.StudentDto;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final MapStructMapper mapStructMapper;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, MapStructMapper mapStructMapper) {
         this.studentRepository = studentRepository;
+        this.mapStructMapper = mapStructMapper;
     }
 
 
     public List<StudentDto> getStudents(){
-        return studentRepository.findAll()
-                .stream().map(student ->  student.mapStudentWithCredits()).collect(Collectors.toList());
-
+        return mapStructMapper.studentsToStudentsDto(
+                studentRepository.findAll()
+        );
     }
 
     public void addNewStudent(Student student) {

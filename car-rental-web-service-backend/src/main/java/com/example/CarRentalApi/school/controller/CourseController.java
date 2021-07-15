@@ -1,7 +1,7 @@
 package com.example.CarRentalApi.school.controller;
 
 import com.example.CarRentalApi.school.model.Course;
-import com.example.CarRentalApi.school.model.dto.CourseDto;
+import com.example.CarRentalApi.school.dto.CourseDto;
 import com.example.CarRentalApi.school.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,11 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseDto>> getCourses() {
-        return ResponseEntity.ok(courseService.getCourses());
+        return new ResponseEntity<>((
+                courseService.getCourses()
+        ),
+                HttpStatus.OK
+        );
     }
 
     @PostMapping

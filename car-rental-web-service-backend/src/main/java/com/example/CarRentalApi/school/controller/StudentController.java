@@ -1,7 +1,7 @@
 package com.example.CarRentalApi.school.controller;
 
 import com.example.CarRentalApi.school.model.Student;
-import com.example.CarRentalApi.school.model.dto.StudentDto;
+import com.example.CarRentalApi.school.dto.StudentDto;
 import com.example.CarRentalApi.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,13 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<List<StudentDto>> getStudent(){
-        return ResponseEntity.ok(studentService.getStudents());
-
+        return new ResponseEntity<>((
+                studentService.getStudents()
+        ),
+                HttpStatus.OK
+        );
     }
+
     @PostMapping
     public ResponseEntity registerNewStudent(@RequestBody Student student)
     {

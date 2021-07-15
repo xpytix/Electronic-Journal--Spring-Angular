@@ -1,10 +1,9 @@
 package com.example.CarRentalApi.school.service;
 
+import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Category;
-import com.example.CarRentalApi.school.model.Student;
-import com.example.CarRentalApi.school.model.dto.CategoryDto;
+import com.example.CarRentalApi.school.dto.CategoryDto;
 import com.example.CarRentalApi.school.repository.CategoryRepository;
-import com.example.CarRentalApi.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +16,18 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final MapStructMapper mapStructMapper;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, MapStructMapper mapStructMapper) {
         this.categoryRepository = categoryRepository;
+        this.mapStructMapper = mapStructMapper;
     }
 
     public List<CategoryDto> getCategories() {
-        return categoryRepository
-                .findAll()
-                .stream().map(category ->  category.mapCourseToDtoWithoutCategory()).collect(Collectors.toList());
-
+        return mapStructMapper.categoriesToCategoriesDto(
+                categoryRepository.findAll()
+        );
     }
 
     public void addNewCategory(Category category) {

@@ -1,16 +1,20 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.model.dto.CourseDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "Course")
 @Data
-public class Course {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Course implements Serializable {
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
@@ -18,19 +22,19 @@ public class Course {
     private String name;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
      @OneToOne(mappedBy = "course")
        private Credit credit;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Course() {
-    }
+//    public Course() {
+//    }
 
     public Course(String name) {
         this.name = name;
@@ -42,34 +46,7 @@ public class Course {
 
     }
 
-    // MAP TEACHER TO DTO
-    public CourseDto mapCourseToDtoWithoutTeacher() {
-        return CourseDto
-                .builder()
-                .name(getName())
-                .build();
-    }
 
-    public CourseDto mapCourseToDtoWithTeacher() {
-        return CourseDto
-                .builder()
-                .name(getName())
-                .teacher(getTeacher().mapTeacherToDtoWithoutCourse())
-                .build();
-    }
-
-    public CourseDto mapCourseToDtoWithOutCredit() {
-        return CourseDto
-                .builder()
-                .name(getName())
-                .build();
-    }
-    public CourseDto mapCourseToDtoWithoutCategory() {
-        return CourseDto
-                .builder()
-                .name(getName())
-                .build();
-    }
 
 
 }

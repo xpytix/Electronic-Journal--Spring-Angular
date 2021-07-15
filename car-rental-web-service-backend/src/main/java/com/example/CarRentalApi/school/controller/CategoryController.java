@@ -1,7 +1,7 @@
 package com.example.CarRentalApi.school.controller;
 
 import com.example.CarRentalApi.school.model.Category;
-import com.example.CarRentalApi.school.model.dto.CategoryDto;
+import com.example.CarRentalApi.school.dto.CategoryDto;
 import com.example.CarRentalApi.school.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,11 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getCategories() {
-        return ResponseEntity.ok(categoryService.getCategories());
+        return new ResponseEntity<>((
+                categoryService.getCategories()
+        ),
+                HttpStatus.OK
+        );
 
     }
     @PostMapping

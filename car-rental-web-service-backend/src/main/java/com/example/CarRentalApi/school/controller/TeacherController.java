@@ -1,7 +1,9 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Teacher;
-import com.example.CarRentalApi.school.model.dto.TeacherDto;
+import com.example.CarRentalApi.school.dto.TeacherDto;
+import com.example.CarRentalApi.school.repository.TeacherRepository;
 import com.example.CarRentalApi.school.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,15 +17,22 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
-
+    private final TeacherRepository teacherRepository;
+    private final MapStructMapper mapStructMapper;
     @Autowired
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, TeacherRepository teacherRepository, MapStructMapper mapStructMapper) {
         this.teacherService = teacherService;
+        this.teacherRepository = teacherRepository;
+        this.mapStructMapper = mapStructMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<TeacherDto>> getTeachers(){
-        return ResponseEntity.ok(teacherService.getTeachers());
+        return new ResponseEntity<>((
+                teacherService.getTeachers()
+                ),
+                HttpStatus.OK
+        );
     }
     @PostMapping
     public ResponseEntity addNewTeacher(@RequestBody Teacher teacher)

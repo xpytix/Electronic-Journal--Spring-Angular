@@ -1,17 +1,20 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.model.dto.CreditDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-import java.util.stream.Collectors;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "Credit")
 @Data
-public class Credit {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Credit implements Serializable {
 
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
@@ -24,14 +27,14 @@ public class Credit {
     @JoinColumn(name="student_id")
     private Student student;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 
 
-    public Credit() {
-    }
-
+//    public Credit() {
+//    }
+//
     public Credit(Long id, Integer grade, Boolean attempt) {
         this.id = id;
         this.grade = grade;
@@ -43,19 +46,5 @@ public class Credit {
         this.attempt = attempt;
 
     }
-    public CreditDto mapCreditToDto() {
-        return CreditDto
-                .builder()
-                .grade(getGrade())
-                .attempt(getAttempt())
-                .build();
-    }
-    public CreditDto mapCreditToDtoWithCourse() {
-        return CreditDto
-                .builder()
-                .grade(getGrade())
-                .attempt(getAttempt())
-                .course(getCourse().mapCourseToDtoWithOutCredit())
-                .build();
-    }
+
 }

@@ -1,17 +1,17 @@
-package com.example.CarRentalApi.school.model.dto;
+package com.example.CarRentalApi.school.dto;
 
-import lombok.Builder;
+
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-@Builder
-public class StudentDto {
+
+public class TeacherDto {
     private String email;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
-    private List<CreditDto> credits;
+    private List<CourseDto> courses;
 
 }

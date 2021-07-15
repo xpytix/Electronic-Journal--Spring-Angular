@@ -1,20 +1,22 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.model.dto.TeacherDto;
+import com.example.CarRentalApi.school.dto.TeacherDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name = "Teacher")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Teacher {
+public class Teacher implements Serializable {
 
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
@@ -32,17 +34,17 @@ public class Teacher {
         courses.add(course);
         course.setTeacher(this);
     }
-    public Teacher() {
-    }
-
-    public Teacher(Long id, String email, String firstName, String lastName, String dateOfBirth) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-    }
-
+//    public Teacher() {
+//    }
+//
+//    public Teacher(Long id, String email, String firstName, String lastName, String dateOfBirth) {
+//        this.id = id;
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.dateOfBirth = dateOfBirth;
+//    }
+//
     public Teacher(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
         this.firstName = firstName;
@@ -56,21 +58,5 @@ public class Teacher {
         this.lastName = teacherDto.getLastName();
         this.dateOfBirth = teacherDto.getDateOfBirth();
     }
-    public TeacherDto mapTeacherToDtoWithCourse() {
-        return TeacherDto
-                .builder()
-                .firstName(getFirstName())
-                .lastName(getLastName())
-                .dateOfBirth(getLastName())
-                .courses(getCourses().stream().map(course -> course.mapCourseToDtoWithoutTeacher()).collect(Collectors.toList()))
-                .build();
-    }
-    public TeacherDto mapTeacherToDtoWithoutCourse() {
-        return TeacherDto
-                .builder()
-                .firstName(getFirstName())
-                .lastName(getLastName())
-                .dateOfBirth(getLastName())
-                .build();
-    }
+
 }

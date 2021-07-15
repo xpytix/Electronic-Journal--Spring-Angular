@@ -1,19 +1,21 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.model.dto.StudentDto;
-import com.example.CarRentalApi.school.model.dto.TeacherDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name = "Student")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Student {
+public class Student implements Serializable {
 
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
@@ -47,18 +49,9 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Student() {
-    }
+//    public Student() {
+//    }
 
-    public StudentDto mapStudentWithCredits() {
-        return StudentDto
-                .builder()
-                .email(getEmail())
-                .firstName(getFirstName())
-                .lastName(getLastName())
-                .dateOfBirth(getLastName())
-                .credits(getCredits().stream().map(credit -> credit.mapCreditToDto()).collect(Collectors.toList()))
-                .build();
-    }
+
 
 }

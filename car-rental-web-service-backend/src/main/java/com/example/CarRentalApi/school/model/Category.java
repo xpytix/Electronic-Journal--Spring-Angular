@@ -1,18 +1,21 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.model.dto.CategoryDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Entity
 @Table(name = "Category")
 @Data
-public class Category {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Category implements Serializable {
 
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
@@ -27,8 +30,8 @@ public class Category {
         courses.add(course);
         course.setCategory(this);
     }
-    public Category() {
-    }
+//    public Category() {
+//    }
 
     public Category(String name) {
         this.name = name;
@@ -38,12 +41,5 @@ public class Category {
         this.id = id;
         this.name = name;
     }
-    public CategoryDto mapCourseToDtoWithoutCategory() {
-        return CategoryDto
-                .builder()
-                .name(getName())
-                .courses(getCourses().stream().map(course -> course.mapCourseToDtoWithTeacher()).collect(Collectors.toList()))
-                .build();
 
-    }
 }
