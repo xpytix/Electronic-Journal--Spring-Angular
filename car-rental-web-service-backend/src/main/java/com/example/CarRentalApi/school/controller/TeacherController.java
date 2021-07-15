@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.dto.TeacherSlimDto;
 import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.dto.TeacherDto;
@@ -35,7 +36,7 @@ public class TeacherController {
         );
     }
     @PostMapping
-    public ResponseEntity addNewTeacher(@RequestBody Teacher teacher)
+    public ResponseEntity addNewTeacher(@RequestBody TeacherSlimDto teacher)
     {
         teacherService.addNewTeacher(teacher);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Teacher has been created!").build();

@@ -1,6 +1,7 @@
 package com.example.CarRentalApi.school.service;
 
 import com.example.CarRentalApi.school.dto.TeacherDto;
+import com.example.CarRentalApi.school.dto.TeacherSlimDto;
 import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
@@ -27,8 +28,8 @@ public class TeacherService {
                 teacherRepository.findAll());
     }
 
-    public void addNewTeacher(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public void addNewTeacher(TeacherSlimDto teacher) {
+        teacherRepository.save(mapStructMapper.teacherSlimDtoToTeacher(teacher));
     }
 
     public void deleteTeacher(Long teacherId) {

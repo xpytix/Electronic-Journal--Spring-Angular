@@ -11,6 +11,7 @@ public interface MapStructMapper {
     public List<TeacherDto> teachersToTeachersDto(List<Teacher> teachers);
     public CourseDto courseToCourseDto(Course course);
     public TeacherSlimDto teacherToTeacherSlimDto(Teacher teacher);
+    public Teacher teacherSlimDtoToTeacher(TeacherSlimDto teacherSlimDto);
     public List<StudentDto> studentsToStudentsDto(List<Student> students);
     public CreditDto creditToCreditDto(Credit credit);
     public CreditSlimDto creditToCreditSlimDto(Credit credit);
