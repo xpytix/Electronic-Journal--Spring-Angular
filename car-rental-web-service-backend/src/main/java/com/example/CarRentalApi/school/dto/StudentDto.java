@@ -1,13 +1,14 @@
 package com.example.CarRentalApi.school.dto;
 
+import java.util.List;
 
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 
 public class StudentDto {
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;

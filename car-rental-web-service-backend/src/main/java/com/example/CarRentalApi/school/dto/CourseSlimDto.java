@@ -4,9 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class CourseDto {
+public class CourseSlimDto {
     private Long id;
     private String name;
-    private TeacherSlimDto teacher;
-    private CreditSlimDto credit;
 }

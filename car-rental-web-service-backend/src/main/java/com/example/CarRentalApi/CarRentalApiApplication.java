@@ -1,4 +1,5 @@
 package com.example.CarRentalApi;
+
 import com.example.CarRentalApi.school.model.*;
 import com.example.CarRentalApi.school.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
@@ -30,38 +30,24 @@ public class CarRentalApiApplication {
     }
 
     @Bean
-    public CommandLineRunner dataLoader(CategoryRepository categoryRepository, CourseRepository courseRepository, CreditRepository creditRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public CommandLineRunner dataLoader(CategoryRepository categoryRepository, CourseRepository courseRepository,
+            CreditRepository creditRepository, StudentRepository studentRepository,
+            TeacherRepository teacherRepository) {
         return args -> {
-            Teacher teacherJozef = new Teacher(
-                    "jozef@gmail.com","Jozef", "Bomba",
-                    "13.01.1992"
-            );
-            Teacher teacherAndrzej = new Teacher(
-                    "andrzeja@gmail.com","Andrzej", "Nuda",
-                    "1.11.2009"
-            );
+            Teacher teacherJozef = new Teacher("jozef@gmail.com", "Jozef", "Bomba", "admin", "13.01.1992", "ADMIN", true);
+            Teacher teacherAndrzej = new Teacher("andrzeja@gmail.com", "Andrzej", "Nuda","admin", "1.11.2009","ADMIN", true);
+            Course programowanie = new Course("Programowanie");
 
-            Course programowanie = new Course(
-                    "Programowanie"
-            );
+            Course bazy_danych = new Course("bazy_danych");
 
-            Course bazy_danych = new Course(
-                    "bazy_danych"
-            );
-
-            Student studentDominik = new Student("siemka@gmail.com", "Dominik", "Kowalski", "13.01.1992");
-            Student studentSzymon = new Student("siemka@gmail.com", "Szymon", "Kowalski", "13.01.1992");
+            Student studentDominik = new Student("dominik@gmail.com", "Dominik", "user","Kowalski", "13.01.1992", "USER");
+            Student studentSzymon = new Student("szymon@gmail.com", "Szymon", "user","Kowalski", "13.01.1992", "USER");
 
             Credit credit1 = new Credit(5, true);
             Credit credit2 = new Credit(5, true);
             Credit credit3 = new Credit(5, true);
-            Category categoryFrontEnd = new Category(
-                    "FrontEnd"
-            );
-            Category categoryBackEnd = new Category(
-                    "BackEnd"
-            );
-
+            Category categoryFrontEnd = new Category("FrontEnd");
+            Category categoryBackEnd = new Category("BackEnd");
 
             studentRepository.save(studentDominik);
             studentRepository.save(studentSzymon);
@@ -79,11 +65,9 @@ public class CarRentalApiApplication {
             categoryRepository.save(categoryBackEnd);
             categoryRepository.save(categoryFrontEnd);
 
-
             programowanie.setCredit(credit1);
             categoryBackEnd.addCourse(programowanie);
             categoryFrontEnd.addCourse(bazy_danych);
-
 
             credit1.setCourse(programowanie);
             credit2.setCourse(programowanie);
@@ -93,7 +77,6 @@ public class CarRentalApiApplication {
             credit3.setStudent(studentSzymon);
 
             creditRepository.save(credit1);
-
 
         };
     }

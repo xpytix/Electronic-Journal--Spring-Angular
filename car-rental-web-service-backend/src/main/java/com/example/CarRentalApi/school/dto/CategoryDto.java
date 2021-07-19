@@ -1,12 +1,13 @@
 package com.example.CarRentalApi.school.dto;
 
+import java.util.List;
 
 import lombok.Data;
 
-import java.util.List;
+
 @Data
 public class CategoryDto {
+    private Long id;
     private String name;
     private List<CourseDto> courses;
-
 }

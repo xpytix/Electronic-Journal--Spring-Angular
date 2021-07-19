@@ -1,15 +1,17 @@
 package com.example.CarRentalApi.school.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.CarRentalApi.school.dto.TeacherDto;
 import com.example.CarRentalApi.school.dto.TeacherSlimDto;
 import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -23,9 +25,8 @@ public class TeacherService {
         this.mapStructMapper = mapStructMapper;
     }
 
-    public List<TeacherDto> getTeachers(){
-        return   mapStructMapper.teachersToTeachersDto(
-                teacherRepository.findAll());
+    public List<TeacherDto> getTeachers() {
+        return mapStructMapper.teachersToTeachersDto(teacherRepository.findAll());
     }
 
     public void addNewTeacher(TeacherSlimDto teacher) {
@@ -34,19 +35,17 @@ public class TeacherService {
 
     public void deleteTeacher(Long teacherId) {
         boolean exist = teacherRepository.existsById(teacherId);
-        if(!exist){
-            throw new IllegalStateException(
-                    "teacher with id " + teacherId + "does not exist");
+        if (!exist) {
+            throw new IllegalStateException("teacher with id " + teacherId + "does not exist");
         }
         teacherRepository.deleteById(teacherId);
     }
 
-    public void updateTeacher(Teacher teacher) {
+    public void updateTeacher(TeacherSlimDto teacher) {
         Optional<Teacher> exist = teacherRepository.findById(teacher.getId());
 
-        Teacher teacherToUpdate = exist.orElseThrow(()-> new IllegalStateException(
-                "teacher with id " + teacher.getId() + "does not exist")
-        );
+        Teacher teacherToUpdate = exist
+                .orElseThrow(() -> new IllegalStateException("teacher with id " + teacher.getId() + "does not exist"));
 
         teacherToUpdate.setEmail(teacher.getEmail());
         teacherToUpdate.setDateOfBirth(teacher.getDateOfBirth());

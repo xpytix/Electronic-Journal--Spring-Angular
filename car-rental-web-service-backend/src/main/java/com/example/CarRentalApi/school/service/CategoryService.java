@@ -1,15 +1,15 @@
 package com.example.CarRentalApi.school.service;
 
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
-import com.example.CarRentalApi.school.model.Category;
-import com.example.CarRentalApi.school.dto.CategoryDto;
-import com.example.CarRentalApi.school.repository.CategoryRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.example.CarRentalApi.school.dto.CategoryDto;
+import com.example.CarRentalApi.school.mapper.MapStructMapper;
+import com.example.CarRentalApi.school.model.Category;
+import com.example.CarRentalApi.school.repository.CategoryRepository;
 
 
 @Service
@@ -25,9 +25,7 @@ public class CategoryService {
     }
 
     public List<CategoryDto> getCategories() {
-        return mapStructMapper.categoriesToCategoriesDto(
-                categoryRepository.findAll()
-        );
+        return mapStructMapper.categoriesToCategoriesDto(categoryRepository.findAll());
     }
 
     public void addNewCategory(Category category) {

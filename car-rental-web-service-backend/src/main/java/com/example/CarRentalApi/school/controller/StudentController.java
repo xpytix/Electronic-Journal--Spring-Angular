@@ -1,14 +1,16 @@
 package com.example.CarRentalApi.school.controller;
 
-import com.example.CarRentalApi.school.model.Student;
-import com.example.CarRentalApi.school.dto.StudentDto;
-import com.example.CarRentalApi.school.service.StudentService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.CarRentalApi.school.dto.StudentDto;
+import com.example.CarRentalApi.school.model.Student;
+import com.example.CarRentalApi.school.service.StudentService;
+
 
 @RestController
 @RequestMapping(path = "api/v1/student")
@@ -22,28 +24,24 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getStudent(){
-        return new ResponseEntity<>((
-                studentService.getStudents()
-        ),
-                HttpStatus.OK
-        );
+    public ResponseEntity<List<StudentDto>> getStudent() {
+        return new ResponseEntity<>((studentService.getStudents()), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity registerNewStudent(@RequestBody Student student)
-    {
+    public ResponseEntity registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
 
     }
 
     @DeleteMapping(path = "{studentId}")
-    public ResponseEntity deleteStudent(@PathVariable("studentId") Long studentId){
+    public ResponseEntity deleteStudent(@PathVariable("studentId") Long studentId) {
         studentService.deleteStudent(studentId);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Student has been deleted!").build();
 
     }
+
     @PutMapping
     public ResponseEntity updateStudent(@RequestBody Student student) {
         studentService.updateStudent(student);

@@ -1,12 +1,12 @@
 package com.example.CarRentalApi.school.model;
 
+import java.io.Serializable;
+
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Entity
@@ -24,23 +24,20 @@ public class Credit implements Serializable {
     private Boolean attempt;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="student_id")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 
-
-//    public Credit() {
-//    }
-//
     public Credit(Long id, Integer grade, Boolean attempt) {
         this.id = id;
         this.grade = grade;
         this.attempt = attempt;
 
     }
+
     public Credit(Integer grade, Boolean attempt) {
         this.grade = grade;
         this.attempt = attempt;
