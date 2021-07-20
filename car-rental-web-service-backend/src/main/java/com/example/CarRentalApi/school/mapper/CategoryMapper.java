@@ -1,6 +1,6 @@
 package com.example.CarRentalApi.school.mapper;
 
-import com.example.CarRentalApi.school.dto.CategoryDto;
+import com.example.CarRentalApi.school.dto.category.CategoryDto;
 import com.example.CarRentalApi.school.model.Category;
 import org.mapstruct.Mapper;
 

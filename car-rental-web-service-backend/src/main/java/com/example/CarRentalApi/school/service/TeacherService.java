@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.CarRentalApi.school.dto.TeacherDto;
-import com.example.CarRentalApi.school.dto.TeacherDtoGet;
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
+import com.example.CarRentalApi.school.dto.teacher.TeacherDto;
+import com.example.CarRentalApi.school.dto.teacher.TeacherDtoGet;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
 

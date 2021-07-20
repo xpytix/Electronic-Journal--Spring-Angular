@@ -2,14 +2,13 @@ package com.example.CarRentalApi.school.controller;
 
 import java.util.List;
 
-import com.example.CarRentalApi.school.dto.TeacherDtoGet;
+import com.example.CarRentalApi.school.dto.teacher.TeacherDtoGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.CarRentalApi.school.dto.TeacherDto;
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
+import com.example.CarRentalApi.school.dto.teacher.TeacherDto;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
 import com.example.CarRentalApi.school.service.TeacherService;
 
@@ -20,14 +19,11 @@ public class TeacherController {
 
     private final TeacherService teacherService;
     private final TeacherRepository teacherRepository;
-    private final MapStructMapper mapStructMapper;
 
     @Autowired
-    public TeacherController(TeacherService teacherService, TeacherRepository teacherRepository,
-            MapStructMapper mapStructMapper) {
+    public TeacherController(TeacherService teacherService, TeacherRepository teacherRepository) {
         this.teacherService = teacherService;
         this.teacherRepository = teacherRepository;
-        this.mapStructMapper = mapStructMapper;
     }
 
     @GetMapping

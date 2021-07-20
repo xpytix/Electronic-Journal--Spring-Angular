@@ -7,7 +7,7 @@ import com.example.CarRentalApi.school.mapper.CreditMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.CarRentalApi.school.dto.CreditDto;
+import com.example.CarRentalApi.school.dto.credit.CreditDto;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.repository.CreditRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;

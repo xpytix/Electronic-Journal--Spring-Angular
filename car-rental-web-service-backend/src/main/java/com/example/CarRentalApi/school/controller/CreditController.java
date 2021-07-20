@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.CarRentalApi.school.dto.CreditDto;
+import com.example.CarRentalApi.school.dto.credit.CreditDto;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.service.CreditService;
 

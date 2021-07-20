@@ -7,8 +7,8 @@ import com.example.CarRentalApi.school.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.CarRentalApi.school.dto.CourseDto;
-import com.example.CarRentalApi.school.dto.CourseDtoGet;
+import com.example.CarRentalApi.school.dto.course.CourseDto;
+import com.example.CarRentalApi.school.dto.course.CourseDtoGet;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.CourseRepository;

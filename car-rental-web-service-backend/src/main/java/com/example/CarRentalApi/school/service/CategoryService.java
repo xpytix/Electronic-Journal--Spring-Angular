@@ -7,8 +7,7 @@ import com.example.CarRentalApi.school.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.CarRentalApi.school.dto.CategoryDto;
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
+import com.example.CarRentalApi.school.dto.category.CategoryDto;
 import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.repository.CategoryRepository;
 

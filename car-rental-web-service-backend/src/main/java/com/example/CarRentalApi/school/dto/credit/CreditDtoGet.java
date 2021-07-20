@@ -1,5 +1,6 @@
-package com.example.CarRentalApi.school.dto;
+package com.example.CarRentalApi.school.dto.credit;
 
+import com.example.CarRentalApi.school.dto.student.StudentDtoGet;
 import lombok.Data;
 
 

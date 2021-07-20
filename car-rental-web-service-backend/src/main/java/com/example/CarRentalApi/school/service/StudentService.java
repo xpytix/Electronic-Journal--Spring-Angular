@@ -7,8 +7,7 @@ import com.example.CarRentalApi.school.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.CarRentalApi.school.dto.StudentDto;
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
+import com.example.CarRentalApi.school.dto.student.StudentDto;
 import com.example.CarRentalApi.school.model.Student;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 
