@@ -3,11 +3,11 @@ package com.example.CarRentalApi.school.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.CarRentalApi.school.mapper.CreditMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.CarRentalApi.school.dto.CreditDto;
-import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.repository.CreditRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;
@@ -17,17 +17,16 @@ import com.example.CarRentalApi.school.repository.StudentRepository;
 public class CreditService {
 
     private final CreditRepository creditRepository;
-    private final MapStructMapper mapStructMapper;
+    private final CreditMapper creditMapper;
 
     @Autowired
-    public CreditService(CreditRepository creditRepository, StudentRepository studentRepository,
-            MapStructMapper mapStructMapper) {
+    public CreditService(CreditRepository creditRepository, StudentRepository studentRepository, CreditMapper creditMapper) {
         this.creditRepository = creditRepository;
-        this.mapStructMapper = mapStructMapper;
+        this.creditMapper = creditMapper;
     }
 
     public List<CreditDto> getCredits() {
-        return mapStructMapper.creditsToCreditsDto(creditRepository.findAll());
+        return creditMapper.creditsToCreditsDto(creditRepository.findAll());
     }
 
     public void addNewCredit(Credit credit) {

@@ -3,11 +3,13 @@ package com.example.CarRentalApi.school.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.CarRentalApi.school.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.CarRentalApi.school.dto.TeacherDto;
-import com.example.CarRentalApi.school.dto.TeacherSlimDto;
+import com.example.CarRentalApi.school.dto.TeacherDtoGet;
 import com.example.CarRentalApi.school.mapper.MapStructMapper;
 import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
@@ -17,20 +19,22 @@ import com.example.CarRentalApi.school.repository.TeacherRepository;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    private final MapStructMapper mapStructMapper;
+    private final TeacherMapper teacherMapper;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public TeacherService(TeacherRepository teacherRepository, MapStructMapper mapStructMapper) {
+    public TeacherService(TeacherRepository teacherRepository, TeacherMapper teacherMapper, PasswordEncoder passwordEncoder) {
         this.teacherRepository = teacherRepository;
-        this.mapStructMapper = mapStructMapper;
+        this.teacherMapper = teacherMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<TeacherDto> getTeachers() {
-        return mapStructMapper.teachersToTeachersDto(teacherRepository.findAll());
+        return teacherMapper.teachersToTeachersDto(teacherRepository.findAll());
     }
 
-    public void addNewTeacher(TeacherSlimDto teacher) {
-        teacherRepository.save(mapStructMapper.teacherSlimDtoToTeacher(teacher));
+    public void addNewTeacher(TeacherDtoGet teacher) {
+        teacherRepository.save(teacherMapper.teacherSlimDtoToTeacher(teacher));
     }
 
     public void deleteTeacher(Long teacherId) {
@@ -41,7 +45,7 @@ public class TeacherService {
         teacherRepository.deleteById(teacherId);
     }
 
-    public void updateTeacher(TeacherSlimDto teacher) {
+    public void updateTeacher(TeacherDtoGet teacher) {
         Optional<Teacher> exist = teacherRepository.findById(teacher.getId());
 
         Teacher teacherToUpdate = exist
@@ -55,6 +59,4 @@ public class TeacherService {
         teacherRepository.save(teacherToUpdate);
 
     }
-    // MAP TEACHER TO DTO
-
 }

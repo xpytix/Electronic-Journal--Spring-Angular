@@ -3,6 +3,7 @@ package com.example.CarRentalApi.school.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.CarRentalApi.school.mapper.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,16 @@ import com.example.CarRentalApi.school.repository.CategoryRepository;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final MapStructMapper mapStructMapper;
+    private final CategoryMapper categoryMapper;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, MapStructMapper mapStructMapper) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
-        this.mapStructMapper = mapStructMapper;
+        this.categoryMapper = categoryMapper;
     }
 
     public List<CategoryDto> getCategories() {
-        return mapStructMapper.categoriesToCategoriesDto(categoryRepository.findAll());
+        return categoryMapper.categoriesToCategoriesDto(categoryRepository.findAll());
     }
 
     public void addNewCategory(Category category) {

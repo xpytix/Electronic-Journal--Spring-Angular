@@ -2,13 +2,13 @@ package com.example.CarRentalApi.school.controller;
 
 import java.util.List;
 
+import com.example.CarRentalApi.school.dto.CourseDtoGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.CarRentalApi.school.dto.CourseDto;
-import com.example.CarRentalApi.school.dto.CourseSlimDto;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.service.CourseService;
 
@@ -37,7 +37,7 @@ public class CourseController {
     }
 
     @PostMapping(path = "{teacherId}")
-    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId, CourseSlimDto course) {
+    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId, CourseDtoGet course) {
         courseService.createCourse(teacherId, course);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Course has been created!").build();
 

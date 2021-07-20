@@ -2,6 +2,7 @@ package com.example.CarRentalApi.school.dto;
 
 import java.util.List;
 
+import com.example.CarRentalApi.school.model.User;
 import lombok.Data;
 
 

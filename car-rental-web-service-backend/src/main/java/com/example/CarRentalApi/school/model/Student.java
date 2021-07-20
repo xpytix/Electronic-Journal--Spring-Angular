@@ -1,14 +1,13 @@
 package com.example.CarRentalApi.school.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -27,17 +26,18 @@ public class Student implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    private String password;
     private String dateOfBirth;
-    private String role;
 
-    public Student(String email, String firstName, String lastName, String dateOfBirth, String password, String role) {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+    public Student(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.password = password;
-        this.role = role;
     }
 
     public void addCredit(Credit credit) {

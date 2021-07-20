@@ -1,4 +1,18 @@
 package com.example.CarRentalApi.school.mapper;
 
-public class TeacherMapper {
+import com.example.CarRentalApi.school.dto.TeacherDto;
+import com.example.CarRentalApi.school.dto.TeacherDtoGet;
+import com.example.CarRentalApi.school.model.Teacher;
+import org.mapstruct.Mapper;
+
+import java.util.List;
+@Mapper(componentModel = "spring")
+public interface TeacherMapper {
+    public List<TeacherDto> teachersToTeachersDto(List<Teacher> teachers);
+
+    public TeacherDtoGet teacherToTeacherSlimDto(Teacher teacher);
+
+    public Teacher teacherSlimDtoToTeacher(TeacherDtoGet teacherDtoGet);
+
+    public TeacherDto teacherToTeacherDto(Teacher teacher);
 }

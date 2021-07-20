@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class CourseSlimDto {
+public class CourseDtoGet {
     private Long id;
     private String name;
 }

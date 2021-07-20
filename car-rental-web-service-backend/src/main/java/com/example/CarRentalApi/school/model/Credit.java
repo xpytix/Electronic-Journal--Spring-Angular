@@ -35,7 +35,6 @@ public class Credit implements Serializable {
         this.id = id;
         this.grade = grade;
         this.attempt = attempt;
-
     }
 
     public Credit(Integer grade, Boolean attempt) {

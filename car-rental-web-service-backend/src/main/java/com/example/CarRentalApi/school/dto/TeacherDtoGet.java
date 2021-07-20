@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class StudentSlimDto {
+public class TeacherDtoGet {
     private Long id;
     private String email;
     private String firstName;

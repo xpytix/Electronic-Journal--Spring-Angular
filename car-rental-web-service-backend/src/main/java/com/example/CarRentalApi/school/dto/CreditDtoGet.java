@@ -4,9 +4,9 @@ import lombok.Data;
 
 
 @Data
-public class CreditSlimDto {
+public class CreditDtoGet {
     private Long id;
     private Integer grade;
     private Boolean attempt;
-    private StudentSlimDto student;
+    private StudentDtoGet student;
 }

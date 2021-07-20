@@ -33,9 +33,6 @@ public class Course implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    // public Course() {
-    // }
-
     public Course(String name) {
         this.name = name;
     }
@@ -43,7 +40,5 @@ public class Course implements Serializable {
     public Course(Long id, String name) {
         this.id = id;
         this.name = name;
-
     }
-
 }

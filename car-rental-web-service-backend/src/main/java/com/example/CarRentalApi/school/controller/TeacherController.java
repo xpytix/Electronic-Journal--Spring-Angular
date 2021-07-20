@@ -2,15 +2,14 @@ package com.example.CarRentalApi.school.controller;
 
 import java.util.List;
 
+import com.example.CarRentalApi.school.dto.TeacherDtoGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.CarRentalApi.school.dto.TeacherDto;
-import com.example.CarRentalApi.school.dto.TeacherSlimDto;
 import com.example.CarRentalApi.school.mapper.MapStructMapper;
-import com.example.CarRentalApi.school.model.Teacher;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
 import com.example.CarRentalApi.school.service.TeacherService;
 
@@ -37,13 +36,13 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity addNewTeacher(@RequestBody TeacherSlimDto teacher) {
+    public ResponseEntity addNewTeacher(@RequestBody TeacherDtoGet teacher) {
         teacherService.addNewTeacher(teacher);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Teacher has been created!").build();
     }
 
     @PutMapping
-    public ResponseEntity updateTeacher(@RequestBody TeacherSlimDto teacher) {
+    public ResponseEntity updateTeacher(@RequestBody TeacherDtoGet teacher) {
         teacherService.updateTeacher(teacher);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Teacher has been updated!").build();
     }

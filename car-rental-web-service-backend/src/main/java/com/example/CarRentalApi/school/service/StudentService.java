@@ -3,6 +3,7 @@ package com.example.CarRentalApi.school.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.CarRentalApi.school.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,16 @@ import com.example.CarRentalApi.school.repository.StudentRepository;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final MapStructMapper mapStructMapper;
+    private final StudentMapper studentMapper;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, MapStructMapper mapStructMapper) {
+    public StudentService(StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
-        this.mapStructMapper = mapStructMapper;
+        this.studentMapper = studentMapper;
     }
 
     public List<StudentDto> getStudents() {
-        return mapStructMapper.studentsToStudentsDto(studentRepository.findAll());
+        return studentMapper.studentsToStudentsDto(studentRepository.findAll());
     }
 
     public void addNewStudent(Student student) {

@@ -9,7 +9,7 @@ public class CreditDto {
     private Long id;
     private Integer grade;
     private Boolean attempt;
-    private CourseSlimDto course;
-    private StudentSlimDto student;
+    private CourseDtoGet course;
+    private StudentDtoGet student;
 
 }

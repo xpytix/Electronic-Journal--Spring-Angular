@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.CarRentalApi.school.model.Student;
 
+import java.util.Optional;
+
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-
 }
