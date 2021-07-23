@@ -34,7 +34,7 @@ public class UserSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().disable();
         http.authorizeRequests()
-                .antMatchers("/api/v1/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/**").permitAll()
                 .and()
                 .formLogin().defaultSuccessUrl("/api/v1/teacher");
     }

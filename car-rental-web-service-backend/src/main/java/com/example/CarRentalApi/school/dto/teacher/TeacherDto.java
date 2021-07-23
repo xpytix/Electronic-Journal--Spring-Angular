@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Data
 
 public class TeacherDto {
+    private Long id;
     @Size(min = 5, message = "email should be at least 5 characters")
     @NotNull(message = "email cannot be an empty value")
     private String email;

@@ -31,17 +31,14 @@ public class Teacher implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     public Teacher(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
-
     public void addCourse(Course course) {
         courses.add(course);
         course.setTeacher(this);
     }
-
 }
