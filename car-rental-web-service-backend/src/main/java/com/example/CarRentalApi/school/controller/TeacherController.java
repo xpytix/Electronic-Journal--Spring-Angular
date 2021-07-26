@@ -49,10 +49,4 @@ public class TeacherController {
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Teacher has been deleted!").build();
 
     }
-    // @DeleteMapping("/delete/{id}")
-    // public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
-    // teacherService.deleteCourse(id);
-    // return ResponseEntity.status(HttpStatus.OK).build();
-    // }
-
 }

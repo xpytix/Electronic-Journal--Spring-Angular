@@ -12,13 +12,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name = "Users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class User implements UserDetails{
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username;
     private String password;

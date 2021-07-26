@@ -16,8 +16,6 @@ import java.util.List;
 @Data
 public class Teacher implements Serializable {
 
-    @OneToMany(mappedBy = "teacher", cascade = { CascadeType.MERGE }, orphanRemoval = true)
-    List<Course> courses = new ArrayList<>();
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
@@ -26,6 +24,9 @@ public class Teacher implements Serializable {
     private String firstName;
     private String lastName;
     private String dateOfBirth;
+
+    @OneToMany(mappedBy = "teacher", cascade = { CascadeType.REMOVE }, orphanRemoval = true)
+    List<Course> courses = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

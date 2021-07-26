@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserDto {
-    private long id;
+    private Long id;
     @Size(min = 5, message = "username should be at least 5 characters")
     @NotNull(message = "username cannot be an empty value")
     private String username;
