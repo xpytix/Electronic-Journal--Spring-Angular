@@ -1,6 +1,5 @@
 package com.example.CarRentalApi.school.model;
 
-import com.example.CarRentalApi.school.dto.TeacherDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @Table(name = "Teacher")
@@ -27,36 +25,21 @@ public class Teacher implements Serializable {
     private String lastName;
     private String dateOfBirth;
 
-    @OneToMany(mappedBy="teacher",cascade={CascadeType.ALL},orphanRemoval=true)
+    @OneToMany(mappedBy = "teacher", cascade = { CascadeType.REMOVE }, orphanRemoval = true)
     List<Course> courses = new ArrayList<>();
 
-    public void addCourse(Course course) {
-        courses.add(course);
-        course.setTeacher(this);
-    }
-//    public Teacher() {
-//    }
-//
-//    public Teacher(Long id, String email, String firstName, String lastName, String dateOfBirth) {
-//        this.id = id;
-//        this.email = email;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.dateOfBirth = dateOfBirth;
-//    }
-//
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Teacher(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
-    public Teacher(TeacherDto teacherDto)
-    {
-        this.email = teacherDto.getEmail();
-        this.firstName = teacherDto.getFirstName();
-        this.lastName = teacherDto.getLastName();
-        this.dateOfBirth = teacherDto.getDateOfBirth();
+    public void addCourse(Course course) {
+        courses.add(course);
+        course.setTeacher(this);
     }
-
 }

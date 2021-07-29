@@ -1,4 +1,5 @@
 package com.example.CarRentalApi;
+
 import com.example.CarRentalApi.school.model.*;
 import com.example.CarRentalApi.school.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,62 +7,52 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
 
 
 @SpringBootApplication
 @EnableSwagger2
 public class CarRentalApiApplication {
 
-    @Autowired
-    private static StudentRepository studentRepository;
-    @Autowired
-    private CreditRepository creditRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private TeacherRepository teacherRepository;
-
     public static void main(String[] args) {
         SpringApplication.run(CarRentalApiApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner dataLoader(CategoryRepository categoryRepository, CourseRepository courseRepository, CreditRepository creditRepository, StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public CommandLineRunner dataLoader(CategoryRepository categoryRepository, CourseRepository courseRepository,
+            CreditRepository creditRepository, StudentRepository studentRepository,
+            TeacherRepository teacherRepository, UserRepository userRepository,PasswordEncoder passwordEncoder) {
         return args -> {
-            Teacher teacherJozef = new Teacher(
-                    "jozef@gmail.com","Jozef", "Bomba",
-                    "13.01.1992"
-            );
-            Teacher teacherAndrzej = new Teacher(
-                    "andrzeja@gmail.com","Andrzej", "Nuda",
-                    "1.11.2009"
-            );
+            User user1 = new User("user1", "ROLE_ADMIN");
+            user1.setPassword(passwordEncoder.encode("admin"));
+            User user2 = new User("user2", "ROLE_ADMIN");
+            user2.setPassword(passwordEncoder.encode("admin"));
 
-            Course programowanie = new Course(
-                    "Programowanie"
-            );
+            Teacher teacherJozef = new Teacher("jozef@gmail.com", "Jozef", "Bomba", "13.01.1992");
+            Teacher teacherAndrzej = new Teacher("andrzeja@gmail.com", "Andrzej", "Nuda", "1.11.2009");
 
-            Course bazy_danych = new Course(
-                    "bazy_danych"
-            );
+            teacherJozef.setUser(user1);
 
-            Student studentDominik = new Student("siemka@gmail.com", "Dominik", "Kowalski", "13.01.1992");
-            Student studentSzymon = new Student("siemka@gmail.com", "Szymon", "Kowalski", "13.01.1992");
+            Course programowanie = new Course("Programowanie");
+
+            Course bazy_danych = new Course("bazy_danych");
+
+            Student studentDominik = new Student("dominik@gmail.com", "Dominik","Kowalski", "13.01.1992");
+            Student studentSzymon = new Student("szymon@gmail.com", "Szymon","Kowalski", "13.01.1992");
+
+            studentDominik.setUser(user2);
 
             Credit credit1 = new Credit(5, true);
             Credit credit2 = new Credit(5, true);
             Credit credit3 = new Credit(5, true);
-            Category categoryFrontEnd = new Category(
-                    "FrontEnd"
-            );
-            Category categoryBackEnd = new Category(
-                    "BackEnd"
-            );
-
+            Category categoryFrontEnd = new Category("FrontEnd");
+            Category categoryBackEnd = new Category("BackEnd");
 
             studentRepository.save(studentDominik);
             studentRepository.save(studentSzymon);
@@ -79,11 +70,9 @@ public class CarRentalApiApplication {
             categoryRepository.save(categoryBackEnd);
             categoryRepository.save(categoryFrontEnd);
 
-
             programowanie.setCredit(credit1);
             categoryBackEnd.addCourse(programowanie);
             categoryFrontEnd.addCourse(bazy_danych);
-
 
             credit1.setCourse(programowanie);
             credit2.setCourse(programowanie);
@@ -94,10 +83,23 @@ public class CarRentalApiApplication {
 
             creditRepository.save(credit1);
 
-
         };
     }
-
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
+                "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
+                "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization",
+                "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
     //
     // @Override
     // public void run(String... arg) throws Exception {

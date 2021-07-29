@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 public class Student implements Serializable {
 
+
     @Id
     @SequenceGenerator(name = "school_sequence", sequenceName = "school_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "school_sequence")
@@ -26,13 +27,13 @@ public class Student implements Serializable {
     private String lastName;
     private String dateOfBirth;
 
-    @OneToMany(mappedBy="student",cascade={CascadeType.ALL},orphanRemoval=true)
+    @OneToMany(mappedBy = "student", cascade = { CascadeType.ALL }, orphanRemoval = true)
     List<Credit> credits = new ArrayList<>();
 
-    public void addCredit(Credit credit) {
-        credits.add(credit);
-        credit.setStudent(this);
-    }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Student(String email, String firstName, String lastName, String dateOfBirth) {
         this.email = email;
@@ -41,17 +42,9 @@ public class Student implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Student(Long id, String email, String firstName, String lastName, String dateOfBirth) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
+    public void addCredit(Credit credit) {
+        credits.add(credit);
+        credit.setStudent(this);
     }
-
-//    public Student() {
-//    }
-
-
 
 }
