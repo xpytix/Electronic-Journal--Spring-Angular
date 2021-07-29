@@ -70,18 +70,53 @@ public class CarRentalApiApplication {
             categoryRepository.save(categoryBackEnd);
             categoryRepository.save(categoryFrontEnd);
 
-            programowanie.setCredit(credit1);
             categoryBackEnd.addCourse(programowanie);
             categoryFrontEnd.addCourse(bazy_danych);
 
-            credit1.setCourse(programowanie);
-            credit2.setCourse(programowanie);
-            credit3.setCourse(programowanie);
-            credit1.setStudent(studentDominik);
-            credit2.setStudent(studentDominik);
-            credit3.setStudent(studentSzymon);
+            courseRepository.save(programowanie);
+            programowanie.addCredit(credit1);
 
             creditRepository.save(credit1);
+            credit1.setCourse(programowanie);
+
+
+
+
+//
+//            credit1.setStudent(studentDominik);
+//            credit2.setStudent(studentDominik);
+//            credit3.setStudent(studentSzymon);
+//
+//
+//
+//            credit1.setCourse(programowanie);
+//            credit1.setStudent(studentDominik);
+            creditRepository.save(credit1);
+//            programowanie.getCredits().add(credit1);
+//            programowanie.setTeacher(teacherAndrzej);
+//
+//            studentDominik.setUser(user2);
+//            studentDominik.getCredits().add(credit1);
+//            teacherAndrzej.setUser(user1);
+//            teacherAndrzej.getCourses().add(programowanie);
+//
+//           // programowanie.setCategory(categoryBackEnd);
+//            courseRepository.save(programowanie);
+//
+
+//            programowanie.getCredits().add(credit1);
+//            programowanie.setTeacher(teacherAndrzej);
+//            programowanie.setCategory(categoryBackEnd);
+//            studentDominik.setUser(user2);
+//            studentDominik.getCredits().add(credit1);
+//            teacherAndrzej.setUser(user1);
+//            teacherAndrzej.getCourses().add(programowanie);
+//            categoryBackEnd.getCourses().add(programowanie);
+//            studentRepository.save(studentDominik);
+//            teacherRepository.save(teacherAndrzej);
+//            categoryRepository.save(categoryBackEnd);
+//            courseRepository.save(programowanie);
+//            creditRepository.save(credit1);
 
         };
     }

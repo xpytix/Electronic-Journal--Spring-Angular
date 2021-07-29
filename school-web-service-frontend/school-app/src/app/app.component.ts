@@ -1,15 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Teacher } from './shared/teacher';
-import { TeachersService } from './teachers.service';
-
+import { AfterViewInit, Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-
+export class AppComponent{
   title = 'school-app';
-  
 }

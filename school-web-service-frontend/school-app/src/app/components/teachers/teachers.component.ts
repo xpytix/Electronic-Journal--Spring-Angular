@@ -1,17 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm} from '@angular/forms'
-import { Course } from '../shared/course';
-import { Teacher } from '../shared/teacher';
-import { TeachersService } from '../teachers.service';
+import { Course } from '../../shared/course';
+import { Teacher } from '../../shared/teacher';
+import { TeachersService } from '../../core/service/teachers.service';
 
 
 @Component({
-  selector: 'app-teacher-dashboard',
-  templateUrl: './teacher-dashboard.component.html',
-  styleUrls: ['./teacher-dashboard.component.css']
+  selector: 'app-teachers',
+  templateUrl: './teachers.component.html',
+  styleUrls: ['./teachers.component.css']
 })
-export class TeacherDashboardComponent implements OnInit {
+export class TeachersComponent implements OnInit {
   public teachers!: Teacher[];
   public editTeacher!: Teacher;
   public deleteTeacher!: Teacher;
@@ -89,7 +89,4 @@ export class TeacherDashboardComponent implements OnInit {
     if(container!=null) container.appendChild(button);
     button.click();
   }
-
-
-  
 }

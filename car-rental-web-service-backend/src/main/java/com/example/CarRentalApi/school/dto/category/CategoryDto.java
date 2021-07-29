@@ -9,7 +9,8 @@ import javax.validation.constraints.Size;
 import lombok.*;
 
 
-@Data
+@Getter
+@Setter
 public class CategoryDto {
     private Long id;
     @Size(min = 2, message = "Name should be at least 2 characters")

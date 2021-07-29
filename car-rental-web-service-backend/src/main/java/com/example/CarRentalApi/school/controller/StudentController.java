@@ -2,6 +2,7 @@ package com.example.CarRentalApi.school.controller;
 
 import java.util.List;
 
+import com.example.CarRentalApi.school.dto.student.StudentDtoPut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +25,23 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getStudent() {
+    public ResponseEntity<List<StudentDto>> getStudents() {
         return new ResponseEntity<>((studentService.getStudents()), HttpStatus.OK);
     }
-
+    @GetMapping(path = "/{studentId}")
+    public ResponseEntity getStudent(@PathVariable("studentId") Long studentId) {
+        return new ResponseEntity((studentService.getStudent(studentId)), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
-
     }
-
+    @PostMapping(path = "{courseId}")
+    public ResponseEntity addNewCourse(@PathVariable("courseId") Long courseId,@RequestBody StudentDtoPut student) {
+        studentService.addNewCourse(courseId, student);
+        return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
+    }
     @DeleteMapping(path = "{studentId}")
     public ResponseEntity deleteStudent(@PathVariable("studentId") Long studentId) {
         studentService.deleteStudent(studentId);
