@@ -30,7 +30,6 @@ export class TeachersComponent implements OnInit {
       (error: HttpErrorResponse)=>{
         alert(error.message);
       }
-      
     )
   }
   public onAddTeacher(addForm:NgForm):void{

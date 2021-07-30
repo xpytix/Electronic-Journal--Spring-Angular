@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
 import { TeachersComponent } from './components/teachers/teachers.component';
 import { TeachersService } from './core/service/teachers.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -16,6 +15,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CourseComponent } from './components/course/course.component';
 import { StudentComponent } from './components/student/student.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,11 +36,10 @@ import { StudentComponent } from './components/student/student.component';
     FormsModule , 
     ReactiveFormsModule,
     HttpClientModule,
-    AuthModule,
     AppRoutingModule,
     CommonModule
   ],
-  providers: [TeachersService],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
