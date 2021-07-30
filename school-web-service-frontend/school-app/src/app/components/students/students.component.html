@@ -1,16 +1,18 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div class="content-wrapper" id="main-container">
-    <div class="row" >
-        <div class="col-xl-3 col-md-6" >
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
             <div class="card">
-                <div class="card-body btnAdd" (click)="onOpenModal(null, 'add')" >
+                <div class="card-body btnAdd" (click)="onOpenModal(null, 'add')">
                     <div>
-                        <p class="text-muted h5">ADD STUDENT        <svg xmlns="http://www.w3.org/2000/svg" width="63" height="63" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                          </svg></p>
-                    </div>        
+                        <p class="text-muted h5">ADD STUDENT <svg xmlns="http://www.w3.org/2000/svg" width="63"
+                                height="63" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                <path fill-rule="evenodd"
+                                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                            </svg></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,9 +23,11 @@
                         <div class="form-group mb-0">
                             <label>Search</label>
                             <div class="input-group mb-0">
-                                <input type="text" class="form-control" placeholder="Search..." aria-describedby="project-search-addon" />
+                                <input type="text" class="form-control" placeholder="Search..."
+                                    aria-describedby="project-search-addon" />
                                 <div class="input-group-append">
-                                    <button class="btn btn-danger" type="button" id="project-search-addon"><i class="fa fa-search search-icon font-12"></i></button>
+                                    <button class="btn btn-danger" type="button" id="project-search-addon"><i
+                                            class="fa fa-search search-icon font-12"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +52,7 @@
                                     <th scope="col">Last name:</th>
                                     <th scope="col">Date of Birthday:</th>
                                     <th scope="col">Email:</th>
-                                    <th scope="col">Courses:</th>                            
+                                    <th scope="col">Courses:</th>
                                     <th scope="col">Action:</th>
                                 </tr>
                             </thead>
@@ -59,36 +63,50 @@
                                     <td>{{student.firstName}}</td>
                                     <td>{{student.lastName}}</td>
                                     <td>{{student.dateOfBirth}}</td>
-
                                     <td>
-                                        <a routerLink="/student/{{student.id}}" class="text-success font-12"><i class="mdi mdi-checkbox-blank-circle mr-1"></i> {{student.email}}</a>
+                                        <a routerLink="/student/{{student.id}}" class="text-success font-12"><i
+                                                class="mdi mdi-checkbox-blank-circle mr-1"></i> {{student.email}}</a>
                                     </td>
                                     <!-- <td>
                                         <div class="courses" *ngFor="let course of teacher.courses; index as j">
                                             <p>{{j+1}}. {{course.name}}</p>
                                         </div>
                                     </td> -->
-                                    <td class="d-flex">    
-                                        <a class="text-danger mr-4" (click)="onOpenModal(student, 'addCourse')" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-plus h5 m-0"></i></a> 
+                                    <td class="d-flex">
+                                        <a class="text-success mr-4" (click)="onOpenModal(student, 'addCourse')"
+                                            data-placement="top" title="" data-original-title="Dodaj kurs"> <i
+                                                class="fa fa-plus h5 m-0"></i></a>
+                                                <a class="text-danger mr-4" (click)="onOpenModal(student, 'deleteCourse')"
+                                                data-placement="top" title="" data-original-title="Usun kurs"> <i
+                                                    class="fa fa-minus h5 m-0"></i></a>
+                                                
                                         <div class="dropdown">
-                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenu2"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Courses:
                                             </button>
-                                            <div class="dropdown-menu"  aria-labelledby="dropdownMenu2">
-                                                <p routerLink="/course/{{credit.course.id}}" *ngFor="let credit of student.credits; index as i" class="dropdown-item" type="button">{{credit.course.name}}</p>                                           
-                                            </div>                                           
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <p routerLink="/course/{{credit.course.id}}"
+                                                    *ngFor="let credit of student.credits; index as i"
+                                                    class="dropdown-item" type="button">{{credit.course.name}}</p>
+                                            </div>
                                         </div>
+
                                     <td>
                                         <div class="action">
-                                            <a class="text-success mr-4" (click)="onOpenModal(student, 'edit')" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
-                                            <a class="text-danger" (click)="onOpenModal(student, 'delete')" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                            <a class="text-success mr-4" (click)="onOpenModal(student, 'edit')"
+                                                data-placement="top" title="" data-original-title="Edit"> <i
+                                                    class="fa fa-pencil h5 m-0"></i></a>
+                                            <a class="text-danger" (click)="onOpenModal(student, 'delete')"
+                                                data-placement="top" title="" data-original-title="Close"> <i
+                                                    class="fa fa-remove h5 m-0"></i></a>
                                         </div>
                                     </td>
-                                </tr>                
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-<!-- 
+                    <!-- 
                     <div class="pt-3">
                         <ul class="pagination justify-content-end mb-0">
                             <li class="page-item disabled">
@@ -107,132 +125,187 @@
         </div>
     </div>
     <!-- end row -->
-    
-<!-- Add Employee Modal -->
-<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addStudentModalLabel">ADD TEACHER</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form #addForm="ngForm">
-                <div class="form-group">
-                   <label for="name">First name</label>
-                   <input type="text" ngModel name="firstName"  class="form-control" placeholder="First name" required >
-                </div>
-                <div class="form-group">
-                    <label for="phone">Last name</label>
-                    <input type="text" ngModel name="lastName" class="form-control" placeholder="Last name" required >
-                 </div>
-                <div class="form-group">
-                   <label for="email">Email Address</label>
-                   <input type="email" ngModel name="email" class="form-control" placeholder="Email" required >
-                </div>
-             
-                <div class="form-group">
-                   <label for="phone">Date of birthday</label>
-                   <input type="text" ngModel name="dateOfBirth" class="form-control" placeholder="Date Of Birthday" required>
-                </div>  
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="add-students-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button [disabled]="addForm.invalid" (click)="onAddStudent(addForm)" type="button" class="btn btn-primary" >Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Edit Modal  -->
-<div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editStudentModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form #editForm="ngForm">
-                <div class="form-group">
-                   <label for="name">First name</label>
-                   <input type="text" ngModel={{editStudent?.firstName}} name="firstName" class="form-control" placeholder="Name" >
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">ADD TEACHER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <input type="hidden" ngModel={{editStudent?.id}} name="id" class="form-control"  placeholder="Name">
-                <div class="form-group">
-                    <label for="phone">Last name</label>
-                    <input type="text" ngModel={{editStudent?.lastName}} name="lastName" class="form-control"  placeholder="lastName" >
-                 </div>
-               <div class="form-group">
-                   <label for="email">Email Address</label>
-                   <input type="text"ngModel={{editStudent?.email}} name="email" class="form-control"  placeholder="Email" >
-                </div>            
-                 <div class="form-group">
-                   <label for="phone">Date of birthday</label>
-                   <input type="text" ngModel={{editStudent?.dateOfBirth}} name="dateOfBirth"  class="form-control" id="dateOfBirth" placeholder="Phone" >
-                </div> 
+                <div class="modal-body">
+                    <form #addForm="ngForm">
+                        <div class="form-group">
+                            <label for="name">First name</label>
+                            <input type="text" ngModel name="firstName" class="form-control" placeholder="First name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Last name</label>
+                            <input type="text" ngModel name="lastName" class="form-control" placeholder="Last name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" ngModel name="email" class="form-control" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Date of birthday</label>
+                            <input type="text" ngModel name="dateOfBirth" class="form-control"
+                                placeholder="Date Of Birthday" required>
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
-                   <button type="button" id="add-students-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                   <button (click)="onUpdateStudent(editForm.value)" data-dismiss="modal" type="submit"  class="btn btn-primary" >Save changes</button>
-                </div> 
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Delete Modal  -->
-<div class="modal fade" id="deleteStudentModal" tabindex="-1" role="dialog" aria-labelledby="deleteStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="deleteTeacherModalLabel">Delete Employee</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Are you sure you want to delete student {{deleteStudent?.firstName}} with id {{deleteStudent?.id}} </p>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDeleteStudent(deleteStudent.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button type="button" id="add-students-form" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <button [disabled]="addForm.invalid" (click)="onAddStudent(addForm)" type="button"
+                        class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
 
-<!-- Add Course Modal -->
-<div class="modal fade" id="addCourseStudentModal" tabindex="-1" role="dialog" aria-labelledby="addCourseStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addCourseStudentModalLabel">ADD COURSE</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <!-- Edit Modal  -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Edit teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm">
+                        <div class="form-group">
+                            <label for="name">First name</label>
+                            <input type="text" ngModel={{editStudent?.firstName}} name="firstName" class="form-control"
+                                placeholder="Name">
+                        </div>
+                        <input type="hidden" ngModel={{editStudent?.id}} name="id" class="form-control"
+                            placeholder="Name">
+                        <div class="form-group">
+                            <label for="phone">Last name</label>
+                            <input type="text" ngModel={{editStudent?.lastName}} name="lastName" class="form-control"
+                                placeholder="lastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="text" ngModel={{editStudent?.email}} name="email" class="form-control"
+                                placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Date of birthday</label>
+                            <input type="text" ngModel={{editStudent?.dateOfBirth}} name="dateOfBirth"
+                                class="form-control" id="dateOfBirth" placeholder="Phone">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add-students-form" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <button (click)="onUpdateStudent(editForm.value)" data-dismiss="modal" type="submit"
+                                class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form #addCourseForm="ngForm">
-                <div class="form-group" >
-                    <select class="form-select" (change)="getCoursesId($event)" aria-label="Default select example" required>
-                        <option selected>Wybierz kurs:</option>
-                        <option *ngFor="let course of courses; index as i" value="{{course.id}}">{{course.name}}</option>
-                      </select>
-                 </div>    
-                <input type="hidden" ngModel={{addCourse?.id}} name="id" class="form-control"  placeholder="Name">
-            </form>
-        </div>
-        <div class="modal-footer ">
-            <button type="button" id="add-students-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button [disabled]="addCourseForm.invalid" (click)="onAddCourseToStudent(course_id,addCourseForm)" type="button" class="btn btn-primary" >Save changes</button> 
-        </div>
-      </div>
     </div>
-  </div>
+    <!-- Delete Modal  -->
+    <div class="modal fade" id="deleteStudentModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteTeacherModalLabel">Delete teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete student {{deleteStudent?.firstName}} with id
+                        {{deleteStudent?.id}} </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteStudent(deleteStudent.id)" class="btn btn-danger"
+                            data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Add Course Modal -->
+    <div class="modal fade" id="addCourseStudentModal" tabindex="-1" role="dialog"
+        aria-labelledby="addCourseStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCourseStudentModalLabel">Add new course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addCourseForm="ngForm">
+                        <div class="form-group">
+                            <select class="form-select" (change)="getCoursesId($event)"
+                                aria-label="Default select example" required>
+                                <option selected>Choose a course:</option>
+                                <option *ngFor="let course of courses; index as i" value="{{course.id}}">{{course.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <input type="hidden" ngModel={{addCourse?.id}} name="id" class="form-control"
+                            placeholder="Name">
+                    </form>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" id="add-students-form" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <button [disabled]="addCourseForm.invalid" (click)="onAddCourseToStudent(course_id,addCourseForm)"
+                        type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Course Modal  -->
+    <div class="modal fade" id="deleteCourseStudentModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteCourseStudentModaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCourseStudentModaLabel">Unsubscribe from the course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #deleteCourseForm="ngForm">
+                        <div class="form-group">
+                            <select class="form-select" (change)="getCreditId($event)"
+                                aria-label="Default select example" required>
+                                <option selected>Choose a course:</option>
+                                <option *ngFor="let credit of creditsOfStudent; index as i" value="{{credit.id}}">
+                                    {{credit.course.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" id="add-students-form" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <button [disabled]="addCourseForm.invalid" (click)="onDeleteCourseFromStudent(credit_id)"
+                    type="submit"  class="btn btn-primary" >Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

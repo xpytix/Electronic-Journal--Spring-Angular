@@ -12,7 +12,6 @@ import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.repository.CreditRepository;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 
-
 @Service
 public class CreditService {
 
@@ -43,7 +42,6 @@ public class CreditService {
 
     public void updateCredit(Credit credit) {
         Optional<Credit> exist = creditRepository.findById(credit.getId());
-
         Credit creditToUpdate = exist
                 .orElseThrow(() -> new IllegalStateException("category with id " + credit.getId() + "does not exist"));
         creditToUpdate.setGrade(credit.getGrade());

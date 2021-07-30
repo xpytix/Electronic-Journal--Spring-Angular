@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Credit } from 'src/app/shared/credit';
 import { Student } from 'src/app/shared/student';
 import { environment } from 'src/environments/environment';
 
@@ -32,7 +33,9 @@ export class StudentsService {
     console.log("funkcja update: " +  student);
     return this.http.put<Student>(`${this.apiServerUrl}/student`, student)
   }
+
   public deleteStudent(studentId: number): Observable<void>{
     return this.http.delete<void>(`${this.apiServerUrl}/student/${studentId}`)
   }
+
 }

@@ -54,7 +54,6 @@ public class StudentService {
 
         Student studentToUpdate = existStudent
                 .orElseThrow(() -> new IllegalStateException("student with id " + student.getId() + "does not exist"));
-
         Credit newCredit = new Credit();
         //credit
         newCredit.setStudent(studentToUpdate);
@@ -64,9 +63,6 @@ public class StudentService {
         creditRepository.save(newCredit);
        //student
         studentToUpdate.getCredits().add(newCredit);
-
-
-
     }
     public StudentDto getStudent(Long studentId) {
         boolean exist = studentRepository.existsById(studentId);
@@ -83,7 +79,6 @@ public class StudentService {
         }
         studentRepository.deleteById(studentId);
     }
-
     public void updateStudent(Student student) {
         Optional<Student> exist = studentRepository.findById(student.getId());
 

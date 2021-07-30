@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CoursesService } from 'src/app/core/service/courses.service';
+import { CreditService } from 'src/app/core/service/credit.service';
 import { StudentsService } from 'src/app/core/service/students.service';
 import { Course } from 'src/app/shared/course';
+import { Credit } from 'src/app/shared/credit';
 import { Student } from 'src/app/shared/student';
 
 @Component({
@@ -16,10 +18,14 @@ export class StudentsComponent implements OnInit {
   public editStudent!: Student;
   public addCourse!: Student;
   public deleteStudent!: Student;
+  public deleteCourse?: Student;
   public course_id?: any;
+  public credit_id?: any;
   public courses?: Course[];
+  public creditsOfStudent?: Credit[];
 
-  constructor(private studentsService: StudentsService,private  coursesService: CoursesService){}
+
+  constructor(private studentsService: StudentsService,private  coursesService: CoursesService,private creditService: CreditService){}
   ngOnInit(): void {
     this.getStudents();
     this.getCourses();
@@ -83,7 +89,17 @@ export class StudentsComponent implements OnInit {
       }
     );
   }
-
+  public onDeleteCourseFromStudent(creditId: number): void {
+    this.creditService.onDeleteCourseFromStudent(creditId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getStudents();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
   public onDeleteStudent(studentId: number): void {
     this.studentsService.deleteStudent(studentId).subscribe(
       (response: void) => {
@@ -119,6 +135,11 @@ export class StudentsComponent implements OnInit {
       this.addCourse = student;
       button.setAttribute('data-target', '#addCourseStudentModal');
     }
+    if (mode === 'deleteCourse') {
+      if(student !=null)
+      this.creditsOfStudent = student.credits;
+      button.setAttribute('data-target', '#deleteCourseStudentModal');
+    }
     if(container!=null) container.appendChild(button);
     button.click();
   }
@@ -127,5 +148,8 @@ export class StudentsComponent implements OnInit {
     console.log(this.course_id);
   }
 
-  
+  public getCreditId(event: any):void{
+    this.credit_id = event.target.value;
+    console.log(this.course_id);
+  }
 }

@@ -25,7 +25,6 @@ export class CoursesService {
   }
   public addCourseWithTeacher(teacherId: number, course: Course): Observable<Course>{
     console.log(course);
-
     return this.http.post<Course>(`${this.apiServerUrl}/course/${teacherId}`, course)
   }
   public updateCourse(teacherId:number, course: Course): Observable<Course>{
