@@ -21,6 +21,7 @@ export class TokenStorageService {
 
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY) + "";
+    
   }
 
   public saveUser(user: any) {

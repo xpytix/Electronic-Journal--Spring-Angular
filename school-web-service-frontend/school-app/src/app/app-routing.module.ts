@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StudentComponent } from './components/student/student.component';
 import { StudentsComponent } from './components/students/students.component';
 import { TeachersComponent } from './components/teachers/teachers.component';
+import { AuthInterceptor } from './_helpers/auth.interceptor'
 
 const routes: Routes = [
   {path: 'teachers', component: TeachersComponent},

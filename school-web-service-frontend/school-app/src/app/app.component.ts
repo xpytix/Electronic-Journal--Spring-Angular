@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   username?: string;
 
   constructor(private tokenStorageService: TokenStorageService) { }
-
+  title: any;
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 

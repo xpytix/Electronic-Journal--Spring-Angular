@@ -12,6 +12,8 @@ import com.example.CarRentalApi.school.dto.teacher.TeacherDto;
 import com.example.CarRentalApi.school.repository.TeacherRepository;
 import com.example.CarRentalApi.school.service.TeacherService;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "api/v1/teacher")
@@ -32,7 +34,7 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity addNewTeacher(@RequestBody TeacherDtoGet teacher) {
+    public ResponseEntity addNewTeacher(@Valid @RequestBody TeacherDtoGet teacher) {
         teacherService.addNewTeacher(teacher);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Teacher has been created!").build();
     }
