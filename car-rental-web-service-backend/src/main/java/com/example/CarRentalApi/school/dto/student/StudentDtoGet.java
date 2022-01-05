@@ -1,12 +1,15 @@
 package com.example.CarRentalApi.school.dto.student;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-@Data
+@Getter
+@Setter
 public class StudentDtoGet {
     private Long id;
     @Size(min = 5, message = "email should be at least 5 characters")

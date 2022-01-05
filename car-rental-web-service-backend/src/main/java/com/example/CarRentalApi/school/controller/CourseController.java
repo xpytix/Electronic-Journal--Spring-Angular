@@ -3,6 +3,7 @@ package com.example.CarRentalApi.school.controller;
 import java.util.List;
 
 import com.example.CarRentalApi.school.dto.course.CourseDtoGet;
+import com.example.CarRentalApi.school.dto.course.CourseDtoPut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,10 @@ public class CourseController {
     public ResponseEntity<List<CourseDto>> getCourses() {
         return new ResponseEntity<>((courseService.getCourses()), HttpStatus.OK);
     }
+    @GetMapping(path = "/{courseId}")
+    public ResponseEntity getCourse(@PathVariable("courseId") Long courseId) {
+        return new ResponseEntity((courseService.getCourse(courseId)), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity addNewCourse(@RequestBody Course course) {
@@ -36,8 +41,8 @@ public class CourseController {
 
     }
 
-    @PostMapping(path = "{teacherId}")
-    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId, CourseDtoGet course) {
+    @PostMapping(path = "/{teacherId}")
+    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId, @RequestBody CourseDtoGet course) {
         courseService.createCourse(teacherId, course);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Course has been created!").build();
 
@@ -49,9 +54,9 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Course has been deleted!").build();
     }
 
-    @PutMapping
-    public ResponseEntity updateCourse(@RequestBody Course course) {
-        courseService.updateCourse(course);
+    @PutMapping(path = "/{teacherId}")
+    public ResponseEntity updateCourse(@PathVariable("teacherId") Long teacherId,@RequestBody CourseDto course) {
+        courseService.updateCourse(teacherId,course);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Course has been updated!").build();
     }
 }

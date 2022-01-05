@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
     public StudentDtoGet studentToStudentSlimDto(Student student);
-
+    public StudentDto studentToStudentsDto(Student students);
     public List<StudentDto> studentsToStudentsDto(List<Student> students);
 }

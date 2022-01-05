@@ -1,6 +1,8 @@
 package com.example.CarRentalApi.school.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -26,12 +28,20 @@ public class Course implements Serializable {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToOne(mappedBy = "course")
-    private Credit credit;
+    @OneToMany(mappedBy = "course", cascade = { CascadeType.REMOVE }, orphanRemoval = true)
+    List<Credit> credits = new ArrayList<>();
+
+//    @OneToOne(mappedBy = "course")
+//    private Credit credit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public void addCredit(Credit credit) {
+        credits.add(credit);
+        credit.setCourse(this);
+    }
 
     public Course(String name) {
         this.name = name;

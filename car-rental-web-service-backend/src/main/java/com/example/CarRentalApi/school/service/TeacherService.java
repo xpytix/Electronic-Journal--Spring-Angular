@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.example.CarRentalApi.school.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.CarRentalApi.school.dto.teacher.TeacherDto;
@@ -19,13 +18,12 @@ public class TeacherService {
 
     private final TeacherRepository teacherRepository;
     private final TeacherMapper teacherMapper;
-    private PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public TeacherService(TeacherRepository teacherRepository, TeacherMapper teacherMapper, PasswordEncoder passwordEncoder) {
+    public TeacherService(TeacherRepository teacherRepository, TeacherMapper teacherMapper) {
         this.teacherRepository = teacherRepository;
         this.teacherMapper = teacherMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public List<TeacherDto> getTeachers() {

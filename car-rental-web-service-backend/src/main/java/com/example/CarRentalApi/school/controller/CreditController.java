@@ -17,25 +17,19 @@ import com.example.CarRentalApi.school.service.CreditService;
 public class CreditController {
 
     private final CreditService creditService;
-
     @Autowired
     public CreditController(CreditService creditService) {
         this.creditService = creditService;
     }
-
     @GetMapping
     public ResponseEntity<List<CreditDto>> getCredits() {
         return new ResponseEntity<>((creditService.getCredits()), HttpStatus.OK);
-
     }
-
     @PostMapping
     public ResponseEntity addNewCredit(@RequestBody Credit credit) {
         creditService.addNewCredit(credit);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Credit has been created!").build();
-
     }
-
     @DeleteMapping(path = "{creditId}")
     public ResponseEntity deleteCredit(@PathVariable("creditId") Long creditId) {
         creditService.deleteCredit(creditId);

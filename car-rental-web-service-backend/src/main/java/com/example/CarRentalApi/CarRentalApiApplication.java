@@ -2,7 +2,6 @@ package com.example.CarRentalApi;
 
 import com.example.CarRentalApi.school.model.*;
 import com.example.CarRentalApi.school.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,12 +25,17 @@ public class CarRentalApiApplication {
 
     @Bean
     public CommandLineRunner dataLoader(CategoryRepository categoryRepository, CourseRepository courseRepository,
-            CreditRepository creditRepository, StudentRepository studentRepository,
+            CreditRepository creditRepository, StudentRepository studentRepository, RoleRepository roleRepository,
             TeacherRepository teacherRepository, UserRepository userRepository,PasswordEncoder passwordEncoder) {
         return args -> {
-            User user1 = new User("user1", "ROLE_ADMIN");
+            User user1 = new User("user1", "admin");
+
+            Role role = new Role(ERole.ROLE_ADMIN);
+            roleRepository.save(role);
+            user1.getRoles().add(role);
             user1.setPassword(passwordEncoder.encode("admin"));
             User user2 = new User("user2", "ROLE_ADMIN");
+
             user2.setPassword(passwordEncoder.encode("admin"));
 
             Teacher teacherJozef = new Teacher("jozef@gmail.com", "Jozef", "Bomba", "13.01.1992");
@@ -70,18 +74,53 @@ public class CarRentalApiApplication {
             categoryRepository.save(categoryBackEnd);
             categoryRepository.save(categoryFrontEnd);
 
-            programowanie.setCredit(credit1);
             categoryBackEnd.addCourse(programowanie);
             categoryFrontEnd.addCourse(bazy_danych);
 
-            credit1.setCourse(programowanie);
-            credit2.setCourse(programowanie);
-            credit3.setCourse(programowanie);
-            credit1.setStudent(studentDominik);
-            credit2.setStudent(studentDominik);
-            credit3.setStudent(studentSzymon);
+            courseRepository.save(programowanie);
+            programowanie.addCredit(credit1);
 
             creditRepository.save(credit1);
+            credit1.setCourse(programowanie);
+
+
+
+
+//
+//            credit1.setStudent(studentDominik);
+//            credit2.setStudent(studentDominik);
+//            credit3.setStudent(studentSzymon);
+//
+//
+//
+//            credit1.setCourse(programowanie);
+//            credit1.setStudent(studentDominik);
+            creditRepository.save(credit1);
+//            programowanie.getCredits().add(credit1);
+//            programowanie.setTeacher(teacherAndrzej);
+//
+//            studentDominik.setUser(user2);
+//            studentDominik.getCredits().add(credit1);
+//            teacherAndrzej.setUser(user1);
+//            teacherAndrzej.getCourses().add(programowanie);
+//
+//           // programowanie.setCategory(categoryBackEnd);
+//            courseRepository.save(programowanie);
+//
+
+//            programowanie.getCredits().add(credit1);
+//            programowanie.setTeacher(teacherAndrzej);
+//            programowanie.setCategory(categoryBackEnd);
+//            studentDominik.setUser(user2);
+//            studentDominik.getCredits().add(credit1);
+//            teacherAndrzej.setUser(user1);
+//            teacherAndrzej.getCourses().add(programowanie);
+//            categoryBackEnd.getCourses().add(programowanie);
+//            studentRepository.save(studentDominik);
+//            teacherRepository.save(teacherAndrzej);
+//            categoryRepository.save(categoryBackEnd);
+//            courseRepository.save(programowanie);
+//            creditRepository.save(credit1);
 
         };
     }
