@@ -36,7 +36,12 @@ public class CreditController {
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Credit has been deleted!").build();
 
     }
+    @DeleteMapping(path = "{creditId}")
+    public ResponseEntity deleteCreditWithStudent(@PathVariable("creditId") Long creditId) {
+        creditService.deleteCredit(creditId);
+        return ResponseEntity.status(HttpStatus.OK).header("Info", "Credit has been deleted!").build();
 
+    }
     @PutMapping
     public ResponseEntity updateCredit(@RequestBody Credit credit) {
         creditService.updateCredit(credit);

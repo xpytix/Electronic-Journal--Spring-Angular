@@ -39,7 +39,10 @@ public class CreditService {
         }
         creditRepository.deleteById(creditId);
     }
-
+    public void deleteCreditWithStudent(Credit credit)
+    {
+        //to do
+    }
     public void updateCredit(Credit credit) {
         Optional<Credit> exist = creditRepository.findById(credit.getId());
         Credit creditToUpdate = exist

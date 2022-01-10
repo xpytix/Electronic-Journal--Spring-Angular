@@ -22,6 +22,7 @@ export class StudentsComponent implements OnInit {
   public course_id?: any;
   public credit_id?: any;
   public courses?: Course[];
+  public coursesOfStudentNotAttend?: Course[];
   public creditsOfStudent?: Credit[];
 
 
@@ -29,6 +30,7 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     this.getStudents();
     this.getCourses();
+    this.getCoursesOfStudentNotAttend();
   }
   public getStudents():void{
     this.studentsService.getStudents().subscribe( 
@@ -45,6 +47,7 @@ export class StudentsComponent implements OnInit {
     this.coursesService.getCourses().subscribe( 
       (response: Course[]) =>{
         this.courses = response;
+
       },
       (error: HttpErrorResponse)=>{
         alert(error.message);
@@ -52,6 +55,7 @@ export class StudentsComponent implements OnInit {
       
     )
   }
+  
   public onAddStudent(addForm:NgForm):void{
     document.getElementById('add-students-form')?.click();
     this.studentsService.addStudent(addForm.value).subscribe(
@@ -144,12 +148,31 @@ export class StudentsComponent implements OnInit {
     button.click();
   }
   public getCoursesId(event: any):void{
+    
     this.course_id = event.target.value;
+    
     console.log(this.course_id);
-  }
 
+    if(this.creditsOfStudent != undefined)
+   { 
+     console.log('hej');
+     
+     for (let i = 0; i < this.creditsOfStudent.length; i++)
+     {
+        if(this.creditsOfStudent[i].course.id !== this.course_id)
+        {
+          this.coursesOfStudentNotAttend?.push(this.creditsOfStudent[i].course)
+        }
+        
+     } 
+    }
+
+  }
+  public getCoursesOfStudentNotAttend():void{
+
+  }
   public getCreditId(event: any):void{
     this.credit_id = event.target.value;
-    console.log(this.course_id);
+
   }
 }

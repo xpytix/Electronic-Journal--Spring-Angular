@@ -95,7 +95,16 @@
                             <tbody *ngFor="let credit of student.credits">                                    
                                 <tr>
                                     <td>
-                                       <span class="float-right font-weight-bold"> {{credit.attempt ? "Zaliczone" : "Niezaliczone"}}</span> {{credit.course.name}}
+                                        {{credit.course.id}}
+                                        {{credit.course.name}} <span class="font-weight-bold" > {{credit.attempt ? "Zaliczone" : "Niezaliczone"}}</span> 
+                                
+                                       <a class="text-danger mr-4 float-right" (click)="onDeleteCourseFromStudent(credit.course.id)"
+                                       data-placement="top" title="" data-original-title="Delete"> <i
+                                           class="fa fa-pencil h5 m-0"></i></a>
+<!--                                         
+                                        <a class="text-succes mr-3 float-right" 
+                                        data-placement="top" title="" data-original-title="Close"> <i
+                                            class="fa fa-remove h5 m-0"></i></a> -->
                                     </td>
                                 </tr>
                             </tbody> 

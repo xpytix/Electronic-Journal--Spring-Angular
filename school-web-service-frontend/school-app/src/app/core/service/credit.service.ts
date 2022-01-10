@@ -13,7 +13,7 @@ export class CreditService {
   private apiServerUrl = environment.apiBaseUrl;
   constructor(private http:HttpClient) { }
 
-
+  
   public onDeleteCourseFromStudent(creditId: number): Observable<void>{
     return this.http.delete<void>(`${this.apiServerUrl}/credit/${creditId}`)
   }

@@ -14,7 +14,6 @@ import com.example.CarRentalApi.school.service.TeacherService;
 
 import javax.validation.Valid;
 
-
 @RestController
 @RequestMapping(path = "api/v1/teacher")
 public class TeacherController {
@@ -51,4 +50,6 @@ public class TeacherController {
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Teacher has been deleted!").build();
 
     }
+
+
 }
