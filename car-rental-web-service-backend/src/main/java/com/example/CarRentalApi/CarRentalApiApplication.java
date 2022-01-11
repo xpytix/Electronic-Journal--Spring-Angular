@@ -83,9 +83,6 @@ public class CarRentalApiApplication {
             creditRepository.save(credit1);
             credit1.setCourse(programowanie);
 
-
-
-
 //
 //            credit1.setStudent(studentDominik);
 //            credit2.setStudent(studentDominik);

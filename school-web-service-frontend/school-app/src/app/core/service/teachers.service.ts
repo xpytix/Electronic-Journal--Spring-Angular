@@ -15,6 +15,9 @@ export class TeachersService {
   public getTeachers(): Observable<Teacher[]>{
     return this.http.get<Teacher[]>(`${this.apiServerUrl}/teacher`)
   }
+  public getTeacher(teacherId: number): Observable<Teacher>{
+    return this.http.get<Teacher>(`${this.apiServerUrl}/teacher/${teacherId}`)
+  }
   public addTeacher(teacher: Teacher): Observable<Teacher>{
     console.log(teacher);
     
