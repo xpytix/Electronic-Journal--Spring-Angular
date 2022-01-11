@@ -173,6 +173,8 @@ export class StudentsComponent implements OnInit {
   }
   public getCreditId(event: any):void{
     this.credit_id = event.target.value;
+    console.log(this.course_id);
 
   }
+
 }

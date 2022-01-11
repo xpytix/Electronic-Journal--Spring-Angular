@@ -31,7 +31,10 @@ public class TeacherController {
     public ResponseEntity<List<TeacherDto>> getTeachers() {
         return new ResponseEntity<>((teacherService.getTeachers()), HttpStatus.OK);
     }
-
+    @GetMapping(path = "/{teacherId}")
+    public ResponseEntity getTeacher(@PathVariable("teacherId") Long teacherId) {
+        return new ResponseEntity((teacherService.getTeacher(teacherId)), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity addNewTeacher(@Valid @RequestBody TeacherDtoGet teacher) {
         teacherService.addNewTeacher(teacher);

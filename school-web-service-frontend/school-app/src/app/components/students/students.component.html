@@ -257,10 +257,10 @@
                 <div class="modal-body">
                     <form #addCourseForm="ngForm">
                         <div class="form-group">
-                            <select class="form-select" (change)="getCreditId($event)"
+                            <select class="form-select" (change)="getCoursesId($event)"
                                 aria-label="Default select example" required>
                                 <option selected>Choose a course:</option>
-                                <option *ngFor="let credit of creditsOfStudent; index as i" value="credit.course">{{credit_id.course}}
+                                <option *ngFor="let course of courses; index as i" value="{{course.id}}"> {{course.name}}
                                 </option>
                             </select>
                         </div>

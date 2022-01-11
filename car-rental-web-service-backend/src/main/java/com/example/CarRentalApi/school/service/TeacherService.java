@@ -3,6 +3,7 @@ package com.example.CarRentalApi.school.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.CarRentalApi.school.dto.student.StudentDto;
 import com.example.CarRentalApi.school.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,4 +57,12 @@ public class TeacherService {
         teacherRepository.save(teacherToUpdate);
 
     }
+    public TeacherDto getTeacher(Long teacherId) {
+        boolean exist = teacherRepository.existsById(teacherId);
+        if (!exist) {
+            throw new IllegalStateException("teacher with id " + teacherId + "does not exist");
+        }
+        return teacherMapper.teacherToTeacherDto(teacherRepository.getById(teacherId));
+    }
+
 }

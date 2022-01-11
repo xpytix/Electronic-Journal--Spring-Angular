@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CoursesService } from 'src/app/core/service/courses.service';
 import { CreditService } from 'src/app/core/service/credit.service';
 import { Course } from 'src/app/shared/course';
+import { Credit } from 'src/app/shared/credit';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -13,6 +14,7 @@ export class CourseComponent implements OnInit {
   public course!: Course;
   error: any;
   public courses!: Course[];
+  public courseCredits!: Credit[];
   constructor(
     private route:ActivatedRoute,
     private coursesService:CoursesService,
@@ -20,28 +22,21 @@ export class CourseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCourse();
-  }
-  loadCourse(){
-    // get by id
+    this.getCourses();
     const courseId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCourse(courseId);
-
-    //get all
-    this.getCourses();
-  
   }
-  
+
   public getCourse(courseId: number):void{
     this.coursesService.getCourse(courseId).subscribe(
       response => this.course = response,
-      error => this.error = error
-    )
+      error => this.error = error    )
   }
 
   public getCourses():void{
     this.coursesService.getCourses().subscribe( 
       (response: Course[]) =>{
+        
         this.courses = response;
       },
       (error: HttpErrorResponse)=>{
@@ -53,16 +48,19 @@ export class CourseComponent implements OnInit {
   
   public deleteCourse(creditId: number):void{
     console.log(creditId);
-    
+   
     this.creditService.onDeleteCourseFromStudent(creditId).subscribe( 
       (response: void) => {
         console.log(response);
         this.getCourses();
+        const courseId = Number(this.route.snapshot.paramMap.get('id'));
+        this.getCourse(courseId);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
       
     )
+    
   }
 }

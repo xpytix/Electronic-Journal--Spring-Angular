@@ -16,6 +16,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { CourseComponent } from './components/course/course.component';
 import { StudentComponent } from './components/student/student.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { TeacherComponent } from './components/teacher/teacher.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     StudentsComponent,
     CourseComponent,
     StudentComponent,
+    TeacherComponent,
     
   ],
   imports: [
