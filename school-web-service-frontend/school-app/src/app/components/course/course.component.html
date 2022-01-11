@@ -46,7 +46,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <button  routerLink="/student/{{c.student.id}}" class="dropdown-item" type="button"><i class="mdi mdi-account"></i> Zobacz kursanta </button>
-                                    <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Usuń z kursu</button>
+                                    <button (click)="deleteCourse(c.id)" class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Usuń z kursu</button>
                                     <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Edytuj </button>
                                 </div>
                             </div>

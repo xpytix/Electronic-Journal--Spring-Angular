@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CoursesService } from 'src/app/core/service/courses.service';
+import { CreditService } from 'src/app/core/service/credit.service';
 import { Course } from 'src/app/shared/course';
 @Component({
   selector: 'app-course',
@@ -14,7 +15,8 @@ export class CourseComponent implements OnInit {
   public courses!: Course[];
   constructor(
     private route:ActivatedRoute,
-    private coursesService:CoursesService
+    private coursesService:CoursesService,
+    private creditService: CreditService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,21 @@ export class CourseComponent implements OnInit {
         this.courses = response;
       },
       (error: HttpErrorResponse)=>{
+        alert(error.message);
+      }
+      
+    )
+  }
+  
+  public deleteCourse(creditId: number):void{
+    console.log(creditId);
+    
+    this.creditService.onDeleteCourseFromStudent(creditId).subscribe( 
+      (response: void) => {
+        console.log(response);
+        this.getCourses();
+      },
+      (error: HttpErrorResponse) => {
         alert(error.message);
       }
       

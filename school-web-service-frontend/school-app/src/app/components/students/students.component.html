@@ -260,7 +260,7 @@
                             <select class="form-select" (change)="getCreditId($event)"
                                 aria-label="Default select example" required>
                                 <option selected>Choose a course:</option>
-                                <option *ngFor="let credit of creditsOfStudent; index as i" value="{{credit.id}}">{{credit.course.name}}
+                                <option *ngFor="let credit of creditsOfStudent; index as i" value="credit.course">{{credit_id.course}}
                                 </option>
                             </select>
                         </div>
