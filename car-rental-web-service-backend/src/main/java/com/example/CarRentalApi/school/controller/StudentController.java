@@ -12,6 +12,8 @@ import com.example.CarRentalApi.school.dto.student.StudentDto;
 import com.example.CarRentalApi.school.model.Student;
 import com.example.CarRentalApi.school.service.StudentService;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "api/v1/student")
@@ -33,12 +35,12 @@ public class StudentController {
         return new ResponseEntity((studentService.getStudent(studentId)), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity registerNewStudent(@RequestBody Student student) {
+    public ResponseEntity registerNewStudent(@Valid @RequestBody Student student) {
         studentService.addNewStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
     }
     @PostMapping(path = "{courseId}")
-    public ResponseEntity addNewCourse(@PathVariable("courseId") Long courseId,@RequestBody StudentDtoPut student) {
+    public ResponseEntity addNewCourse(@PathVariable("courseId") Long courseId,@Valid @RequestBody StudentDtoPut student) {
         studentService.addNewCourse(courseId, student);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
     }
@@ -50,7 +52,7 @@ public class StudentController {
     }
 
     @PutMapping
-    public ResponseEntity updateStudent(@RequestBody Student student) {
+    public ResponseEntity updateStudent(@Valid @RequestBody Student student) {
         studentService.updateStudent(student);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Student has been updated!").build();
 

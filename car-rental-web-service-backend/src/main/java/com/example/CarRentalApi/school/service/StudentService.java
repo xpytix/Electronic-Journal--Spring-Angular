@@ -2,6 +2,7 @@ package com.example.CarRentalApi.school.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.CarRentalApi.school.dto.course.CourseDtoPut;
 import com.example.CarRentalApi.school.dto.student.StudentDtoPut;
@@ -42,10 +43,21 @@ public class StudentService {
     }
 
     public void addNewStudent(Student student) {
-        studentRepository.save(student);
+        Boolean existStudent = existEmail(student).isEmpty();
+       if (!existStudent)
+       {
+           throw new IllegalStateException("student with email " +student.getEmail() + "already exist");
+       }
+       else
+           studentRepository.save(student);
     }
 
     public void addNewCourse(Long courseId, StudentDtoPut student) {
+        if (existCourse(courseId, student))
+        {
+            throw new IllegalStateException("student with id " +student.getId() + "already has course " + courseId);
+        }
+
         Optional<Course> existCourse = courseRepository.findById(courseId);
         Course courseToAdd = existCourse
                 .orElseThrow(() -> new IllegalStateException("course with id " +courseId + "does not exist"));
@@ -94,4 +106,17 @@ public class StudentService {
 
     }
 
+    private Optional<Student> existEmail(Student student)
+    {
+       return studentRepository.findByEmail(student.getEmail());
+    }
+    private boolean existCourse(Long courseId, StudentDtoPut studentDtoPut)
+    {
+        Optional<Student> existStudent = studentRepository.findById(studentDtoPut.getId());
+        List<Course> credits = existStudent.get().getCredits().stream().map(x->x.getCourse()).collect(Collectors.toList());
+        List creditsOld = (List) credits.stream().filter(e-> e.getId() == courseId).collect(Collectors.toList());
+        if (creditsOld.isEmpty())
+            return false;
+        else return true;
+    }
 }

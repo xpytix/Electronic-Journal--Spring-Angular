@@ -11,6 +11,8 @@ import com.example.CarRentalApi.school.dto.credit.CreditDto;
 import com.example.CarRentalApi.school.model.Credit;
 import com.example.CarRentalApi.school.service.CreditService;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "api/v1/credit")
@@ -26,7 +28,7 @@ public class CreditController {
         return new ResponseEntity<>((creditService.getCredits()), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity addNewCredit(@RequestBody Credit credit) {
+    public ResponseEntity addNewCredit(@Valid @RequestBody Credit credit) {
         creditService.addNewCredit(credit);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Credit has been created!").build();
     }
@@ -38,7 +40,7 @@ public class CreditController {
     }
 
     @PutMapping
-    public ResponseEntity updateCredit(@RequestBody Credit credit) {
+    public ResponseEntity updateCredit(@Valid @RequestBody Credit credit) {
         creditService.updateCredit(credit);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Credit has been updated!").build();
     }

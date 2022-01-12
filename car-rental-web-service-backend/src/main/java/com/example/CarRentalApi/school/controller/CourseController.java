@@ -13,6 +13,8 @@ import com.example.CarRentalApi.school.dto.course.CourseDto;
 import com.example.CarRentalApi.school.model.Course;
 import com.example.CarRentalApi.school.service.CourseService;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "api/v1/course")
@@ -35,14 +37,14 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity addNewCourse(@RequestBody Course course) {
+    public ResponseEntity addNewCourse(@Valid @RequestBody Course course) {
         courseService.addNewCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Course has been created!").build();
 
     }
 
     @PostMapping(path = "/{teacherId}")
-    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId, @RequestBody CourseDtoGet course) {
+    public ResponseEntity createCourse(@PathVariable("teacherId") Long teacherId,@Valid @RequestBody CourseDtoGet course) {
         courseService.createCourse(teacherId, course);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Course has been created!").build();
 
@@ -55,7 +57,7 @@ public class CourseController {
     }
 
     @PutMapping(path = "/{teacherId}")
-    public ResponseEntity updateCourse(@PathVariable("teacherId") Long teacherId,@RequestBody CourseDto course) {
+    public ResponseEntity updateCourse(@PathVariable("teacherId") Long teacherId,@Valid @RequestBody CourseDto course) {
         courseService.updateCourse(teacherId,course);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Course has been updated!").build();
     }

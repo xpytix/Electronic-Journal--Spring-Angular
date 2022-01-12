@@ -42,7 +42,7 @@ public class TeacherController {
     }
 
     @PutMapping
-    public ResponseEntity updateTeacher(@RequestBody TeacherDtoGet teacher) {
+    public ResponseEntity updateTeacher(@Valid @RequestBody TeacherDtoGet teacher) {
         teacherService.updateTeacher(teacher);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Teacher has been updated!").build();
     }

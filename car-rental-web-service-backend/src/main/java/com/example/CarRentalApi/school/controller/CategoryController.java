@@ -11,6 +11,8 @@ import com.example.CarRentalApi.school.dto.category.CategoryDto;
 import com.example.CarRentalApi.school.model.Category;
 import com.example.CarRentalApi.school.service.CategoryService;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping(path = "api/v1/category")
@@ -30,7 +32,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity addNewCategory(@RequestBody Category category) {
+    public ResponseEntity addNewCategory(@Valid @RequestBody Category category) {
         categoryService.addNewCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Category has been created!").build();
     }
@@ -42,7 +44,7 @@ public class CategoryController {
     }
 
     @PutMapping
-    public ResponseEntity updateCategory(@RequestBody Category category) {
+    public ResponseEntity updateCategory(@Valid @RequestBody Category category) {
         categoryService.updateCategory(category);
         return ResponseEntity.status(HttpStatus.OK).header("Info", "Category has been updated!").build();
     }

@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Data
 public class StudentDto {
     private Long id;
 
