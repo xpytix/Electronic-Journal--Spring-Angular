@@ -157,10 +157,37 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Date of birthday</label>
+                            <label for="date">Date of birthday</label>
                             <input type="date" ngModel name="dateOfBirth" class="form-control"
                                 placeholder="Date Of Birthday" required>
                         </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="username" ngModel name="username" class="form-control"
+                                placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" ngModel name="password" class="form-control"
+                                placeholder="Password" required>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="password">Date of birthday</label>
+                            <input type="password" ngModel name="password" class="form-control"
+                                placeholder="Password" required>
+                        </div> -->
+                        <div class="form-check">
+                            <input class="form-check-input" ngModel type="radio" name="role" value="ROLE_ADMIN" id="ROLE_ADMIN">
+                            <label class="form-check-label" for="ROLE_ADMIN">
+                             ROLE_ADMIN
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" ngModel type="radio" name="role" value="ROLE_USER" id="ROLE_USER">
+                            <label class="form-check-label" for="ROLE_USER">
+                                ROLE_USER
+                            </label>
+                          </div>
                     </form>
                 </div>
                 <div class="modal-footer">

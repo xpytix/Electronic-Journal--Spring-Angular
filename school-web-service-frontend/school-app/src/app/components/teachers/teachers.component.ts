@@ -4,7 +4,7 @@ import { NgForm} from '@angular/forms'
 import { Course } from '../../shared/course';
 import { Teacher } from '../../shared/teacher';
 import { TeachersService } from '../../core/service/teachers.service';
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-teachers',

@@ -58,6 +58,8 @@ export class StudentsComponent implements OnInit {
   
   public onAddStudent(addForm:NgForm):void{
     document.getElementById('add-students-form')?.click();
+    console.log(addForm.value);
+
     this.studentsService.addStudent(addForm.value).subscribe(
       (response: Student) =>{
         this.getStudents();

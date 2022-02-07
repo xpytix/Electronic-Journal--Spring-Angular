@@ -2,21 +2,22 @@ package com.example.CarRentalApi.school.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.example.CarRentalApi.school.dto.course.CourseDtoPut;
 import com.example.CarRentalApi.school.dto.student.StudentDtoPut;
+import com.example.CarRentalApi.school.dto.student.StudentDtoRegister;
+import com.example.CarRentalApi.school.dto.user.UserDto;
 import com.example.CarRentalApi.school.mapper.CourseMapper;
 import com.example.CarRentalApi.school.mapper.StudentMapper;
-import com.example.CarRentalApi.school.model.Course;
-import com.example.CarRentalApi.school.model.Credit;
+import com.example.CarRentalApi.school.model.*;
 import com.example.CarRentalApi.school.repository.CourseRepository;
 import com.example.CarRentalApi.school.repository.CreditRepository;
+import com.example.CarRentalApi.school.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.CarRentalApi.school.dto.student.StudentDto;
-import com.example.CarRentalApi.school.model.Student;
 import com.example.CarRentalApi.school.repository.StudentRepository;
 
 
@@ -28,28 +29,61 @@ public class StudentService {
     private final StudentMapper studentMapper;
     private final CourseMapper courseMapper;
     private final CreditRepository creditRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, StudentMapper studentMapper, CourseMapper courseMapper, CreditRepository creditRepository) {
+    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, StudentMapper studentMapper, CourseMapper courseMapper, CreditRepository creditRepository, UserRepository userRepository) {
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
         this.studentMapper = studentMapper;
         this.courseMapper = courseMapper;
         this.creditRepository = creditRepository;
+        this.userRepository = userRepository;
     }
 
     public List<StudentDto> getStudents() {
         return studentMapper.studentsToStudentsDto(studentRepository.findAll());
     }
 
-    public void addNewStudent(Student student) {
+    public void addNewStudent(StudentDtoRegister student) {
         Boolean existStudent = existEmail(student).isEmpty();
-       if (!existStudent)
+///
+
+        if (!existStudent)
        {
            throw new IllegalStateException("student with email " +student.getEmail() + "already exist");
        }
+//        if (!existUser)
+//        {
+//            throw new IllegalStateException("student with username " +student.getUser().getUsername() + "already exist");
+//        }
        else
-           studentRepository.save(student);
+        {
+            User user = new User(student.getUser().getUsername(), student.getUser().getPassword());
+            Role role = null;
+            switch (student.getUser().getRole()){
+                case "ROLE_ADMIN":
+                {
+                    role = new Role(ERole.ROLE_ADMIN);
+                    break;
+                }
+                case "ROLE_MODERATOR":
+                {
+                    role = new Role(ERole.ROLE_MODERATOR);
+                    break;
+                }
+                case "ROLE_USER":
+                {
+                    role = new Role(ERole.ROLE_USER);
+                    break;
+                }
+                default:{
+                    role = new Role(ERole.ROLE_USER);
+                }
+            }
+            user.getRoles().add(role);
+            studentRepository.save(studentMapper.studentDtoRegisterToStudent(student));
+        }
     }
 
     public void addNewCourse(Long courseId, StudentDtoPut student) {
@@ -106,9 +140,13 @@ public class StudentService {
 
     }
 
-    private Optional<Student> existEmail(Student student)
+    private Optional<Student> existEmail(StudentDtoRegister student)
     {
        return studentRepository.findByEmail(student.getEmail());
+    }
+    private Optional<User> existUser(StudentDtoRegister student)
+    {
+        return userRepository.findByUsername(student.getUser().getUsername());
     }
     private boolean existCourse(Long courseId, StudentDtoPut studentDtoPut)
     {

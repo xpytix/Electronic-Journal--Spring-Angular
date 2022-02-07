@@ -3,6 +3,7 @@ package com.example.CarRentalApi.school.controller;
 import java.util.List;
 
 import com.example.CarRentalApi.school.dto.student.StudentDtoPut;
+import com.example.CarRentalApi.school.dto.student.StudentDtoRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class StudentController {
         return new ResponseEntity((studentService.getStudent(studentId)), HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity registerNewStudent(@Valid @RequestBody Student student) {
+    public ResponseEntity registerNewStudent(@Valid @RequestBody StudentDtoRegister student) {
         studentService.addNewStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).header("Info", "Student has been created!").build();
     }
