@@ -24,6 +24,11 @@ public class StudentDtoRegister {
         @Size(min = 5, message = "date of birth should be at least 5 characters")
         @NotNull(message = "date of birth cannot be an empty value")
         private String dateOfBirth;
-        @NotNull
-        private UserDto user;
+        @Size(min = 5, message = "username should be at least 5 characters")
+        @NotNull(message = "username cannot be an empty value")
+        private String username;
+        @Size(min = 5, message = "Password should be at least 5 characters")
+        @NotNull(message = "Password cannot be an empty value")
+        private String password;
+        private String role;
     }

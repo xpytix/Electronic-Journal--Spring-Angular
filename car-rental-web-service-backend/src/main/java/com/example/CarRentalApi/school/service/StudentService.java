@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.CarRentalApi.school.dto.student.StudentDtoPut;
 import com.example.CarRentalApi.school.dto.student.StudentDtoRegister;
 import com.example.CarRentalApi.school.dto.user.UserDto;
@@ -30,6 +33,7 @@ public class StudentService {
     private final CourseMapper courseMapper;
     private final CreditRepository creditRepository;
     private final UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, StudentMapper studentMapper, CourseMapper courseMapper, CreditRepository creditRepository, UserRepository userRepository) {
@@ -39,6 +43,7 @@ public class StudentService {
         this.courseMapper = courseMapper;
         this.creditRepository = creditRepository;
         this.userRepository = userRepository;
+
     }
 
     public List<StudentDto> getStudents() {
@@ -59,29 +64,35 @@ public class StudentService {
 //        }
        else
         {
-            User user = new User(student.getUser().getUsername(), student.getUser().getPassword());
-            Role role = null;
-            switch (student.getUser().getRole()){
+            String username = student.getUsername();
+            String password = student.getPassword();
+            User user = new User(username, password);
+            user.setPassword(passwordEncoder.encode(password));
+            switch (student.getRole()){
                 case "ROLE_ADMIN":
                 {
-                    role = new Role(ERole.ROLE_ADMIN);
+                    Role role = new Role(ERole.ROLE_ADMIN);
+                    user.getRoles().add(role);
                     break;
                 }
                 case "ROLE_MODERATOR":
                 {
-                    role = new Role(ERole.ROLE_MODERATOR);
+                    Role role = new Role(ERole.ROLE_MODERATOR);
+                    user.getRoles().add(role);
                     break;
                 }
                 case "ROLE_USER":
                 {
-                    role = new Role(ERole.ROLE_USER);
+                    Role role = new Role(ERole.ROLE_USER);
+                    user.getRoles().add(role);
                     break;
                 }
                 default:{
-                    role = new Role(ERole.ROLE_USER);
+                    Role role = new Role(ERole.ROLE_USER);
+                    user.getRoles().add(role);
                 }
             }
-            user.getRoles().add(role);
+
             studentRepository.save(studentMapper.studentDtoRegisterToStudent(student));
         }
     }
@@ -146,7 +157,7 @@ public class StudentService {
     }
     private Optional<User> existUser(StudentDtoRegister student)
     {
-        return userRepository.findByUsername(student.getUser().getUsername());
+        return userRepository.findByUsername(student.getUsername());
     }
     private boolean existCourse(Long courseId, StudentDtoPut studentDtoPut)
     {
