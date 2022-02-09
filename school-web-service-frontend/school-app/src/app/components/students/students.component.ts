@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UrlSerializer } from '@angular/router';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { CoursesService } from 'src/app/core/service/courses.service';
 import { CreditService } from 'src/app/core/service/credit.service';
@@ -60,12 +61,13 @@ export class StudentsComponent implements OnInit {
   }
   public registerNewStudent(addForm:NgForm):void{
 
-    let user = { username: addForm.controls.username.value, password: addForm.controls.password.value, role: addForm.controls.role.value}
-    this.authService.register(user).subscribe(
+    let user = { username: addForm.controls.username.value, password: addForm.controls.password.value, role: [addForm.controls.role.value.toString()]}
+    console.log(user);
+    console.log(addForm.value);
+    this.authService.register(user, addForm.value).subscribe(
+      
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-        
+
         this.reloadPage();
       },
       err => {
@@ -74,6 +76,7 @@ export class StudentsComponent implements OnInit {
       }
     );
   }
+
   reloadPage() {
     window.location.reload();
   }

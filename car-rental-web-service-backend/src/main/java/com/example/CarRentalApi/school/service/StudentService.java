@@ -51,50 +51,50 @@ public class StudentService {
     }
 
     public void addNewStudent(StudentDtoRegister student) {
-        Boolean existStudent = existEmail(student).isEmpty();
-///
-
-        if (!existStudent)
-       {
-           throw new IllegalStateException("student with email " +student.getEmail() + "already exist");
-       }
-//        if (!existUser)
+//        Boolean existStudent = existEmail(student).isEmpty();
+/////
+//
+//        if (!existStudent)
+//       {
+//           throw new IllegalStateException("student with email " +student.getEmail() + "already exist");
+//       }
+////        if (!existUser)
+////        {
+////            throw new IllegalStateException("student with username " +student.getUser().getUsername() + "already exist");
+////        }
+//       else
 //        {
-//            throw new IllegalStateException("student with username " +student.getUser().getUsername() + "already exist");
+//            String username = student.getUsername();
+//            String password = student.getPassword();
+//            User user = new User(username, password);
+//            user.setPassword(passwordEncoder.encode(password));
+//            switch (student.getRole()){
+//                case "ROLE_ADMIN":
+//                {
+//                    Role role = new Role(ERole.ROLE_ADMIN);
+//                    user.getRoles().add(role);
+//                    break;
+//                }
+//                case "ROLE_MODERATOR":
+//                {
+//                    Role role = new Role(ERole.ROLE_MODERATOR);
+//                    user.getRoles().add(role);
+//                    break;
+//                }
+//                case "ROLE_USER":
+//                {
+//                    Role role = new Role(ERole.ROLE_USER);
+//                    user.getRoles().add(role);
+//                    break;
+//                }
+//                default:{
+//                    Role role = new Role(ERole.ROLE_USER);
+//                    user.getRoles().add(role);
+//                }
+//            }
+//
+//            studentRepository.save(studentMapper.studentDtoRegisterToStudent(student));
 //        }
-       else
-        {
-            String username = student.getUsername();
-            String password = student.getPassword();
-            User user = new User(username, password);
-            user.setPassword(passwordEncoder.encode(password));
-            switch (student.getRole()){
-                case "ROLE_ADMIN":
-                {
-                    Role role = new Role(ERole.ROLE_ADMIN);
-                    user.getRoles().add(role);
-                    break;
-                }
-                case "ROLE_MODERATOR":
-                {
-                    Role role = new Role(ERole.ROLE_MODERATOR);
-                    user.getRoles().add(role);
-                    break;
-                }
-                case "ROLE_USER":
-                {
-                    Role role = new Role(ERole.ROLE_USER);
-                    user.getRoles().add(role);
-                    break;
-                }
-                default:{
-                    Role role = new Role(ERole.ROLE_USER);
-                    user.getRoles().add(role);
-                }
-            }
-
-            studentRepository.save(studentMapper.studentDtoRegisterToStudent(student));
-        }
     }
 
     public void addNewCourse(Long courseId, StudentDtoPut student) {
@@ -155,10 +155,7 @@ public class StudentService {
     {
        return studentRepository.findByEmail(student.getEmail());
     }
-    private Optional<User> existUser(StudentDtoRegister student)
-    {
-        return userRepository.findByUsername(student.getUsername());
-    }
+
     private boolean existCourse(Long courseId, StudentDtoPut studentDtoPut)
     {
         Optional<Student> existStudent = studentRepository.findById(studentDtoPut.getId());

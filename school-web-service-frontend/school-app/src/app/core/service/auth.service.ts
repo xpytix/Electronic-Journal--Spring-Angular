@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Student } from 'src/app/shared/student';
 
 const AUTH_API = 'http://localhost:8082/api/auth/';
 
@@ -21,11 +22,31 @@ export class AuthService {
       password: credentials.password
     }, httpOptions);
   }
-  register(user: { username: any; password: any; role: any;}): Observable<any> {
+  register(user: { username: any; password: any; role: any}, student: Student): Observable<any> {
+   console.log({
+    student: {
+      
+  },
+  signupRequest: {
+    username: user.username,
+    password: user.password,
+    role: user.role,
+  }});
+   
+   
     return this.http.post(AUTH_API + 'signup', {
+      studentDtoRegister: {
+        email: student.email,
+        firstName:student.firstName,
+        lastName:student.lastName,
+        dateOfBirth: student.dateOfBirth
+    },
+    signupRequest: {
       username: user.username,
       password: user.password,
-      role: user.role
+      role: user.role,
+    }
+     
     }, httpOptions);
   }
 }

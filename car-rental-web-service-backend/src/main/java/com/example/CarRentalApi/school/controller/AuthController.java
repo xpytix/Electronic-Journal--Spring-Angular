@@ -1,5 +1,6 @@
 package com.example.CarRentalApi.school.controller;
 
+import com.example.CarRentalApi.school.dto.UserStudent;
 import com.example.CarRentalApi.school.dto.student.StudentDtoRegister;
 import com.example.CarRentalApi.school.mapper.StudentMapper;
 import com.example.CarRentalApi.school.model.ERole;
@@ -73,28 +74,21 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest ) {
-//        Boolean existStudent = existEmail(studentDtoRegister).isEmpty();
-//        if (!existStudent)
-//        {
-//            throw new IllegalStateException("student with email " +studentDtoRegister.getEmail() + "already exist");
-//        }
-//        else
-//        {
-//
-//            studentRepository.save(studentMapper.studentDtoRegisterToStudent(studentDtoRegister));
-//        }
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserStudent userStudent) {
+
+        // Create new user's account
+        User user = new User(userStudent.getSignupRequest().getUsername(),
+                encoder.encode(userStudent.getSignupRequest().getPassword()));
+
+        studentMapper.studentDtoRegisterToStudent(userStudent.getStudentDtoRegister()).setUser(user);
+        studentRepository.save(studentMapper.studentDtoRegisterToStudent(userStudent.getStudentDtoRegister()));
+
+        if (userRepository.existsByUsername(userStudent.getSignupRequest().getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-
-        // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()));
-
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = userStudent.getSignupRequest().getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
