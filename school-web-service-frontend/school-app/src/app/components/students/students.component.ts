@@ -1,9 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UrlSerializer } from '@angular/router';
+import { AuthService } from 'src/app/core/service/auth.service';
 import { CoursesService } from 'src/app/core/service/courses.service';
 import { CreditService } from 'src/app/core/service/credit.service';
 import { StudentsService } from 'src/app/core/service/students.service';
+import { TokenStorageService } from 'src/app/core/service/token-storage.service';
 import { Course } from 'src/app/shared/course';
 import { Credit } from 'src/app/shared/credit';
 import { Student } from 'src/app/shared/student';
@@ -24,9 +27,10 @@ export class StudentsComponent implements OnInit {
   public courses?: Course[];
   public coursesOfStudentNotAttend?: Course[];
   public creditsOfStudent?: Credit[];
+  isLoginFailed = false;
+  errorMessage = '';
 
-
-  constructor(private studentsService: StudentsService,private  coursesService: CoursesService,private creditService: CreditService){}
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private studentsService: StudentsService,private  coursesService: CoursesService,private creditService: CreditService){}
   ngOnInit(): void {
     this.getStudents();
     this.getCourses();
@@ -55,13 +59,37 @@ export class StudentsComponent implements OnInit {
       
     )
   }
-  
+  public registerNewStudent(addForm:NgForm):void{
+
+    let user = { username: addForm.controls.username.value, password: addForm.controls.password.value, role: [addForm.controls.role.value.toString()]}
+    console.log(user);
+    console.log(addForm.value);
+    this.authService.registerStudent(user, addForm.value).subscribe(
+      
+      data => {
+
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
+  }
+
+  reloadPage() {
+    window.location.reload();
+  }
+
   public onAddStudent(addForm:NgForm):void{
     document.getElementById('add-students-form')?.click();
+
     this.studentsService.addStudent(addForm.value).subscribe(
       (response: Student) =>{
         this.getStudents();
         this.getCourses();
+        console.log(response);
+        
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);

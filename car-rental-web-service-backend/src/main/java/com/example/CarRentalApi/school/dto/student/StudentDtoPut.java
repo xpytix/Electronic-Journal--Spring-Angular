@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Data
 public class StudentDtoPut {
     private Long id;
+
 }

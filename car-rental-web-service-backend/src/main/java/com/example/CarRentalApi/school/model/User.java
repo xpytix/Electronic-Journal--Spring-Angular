@@ -23,7 +23,9 @@ public class User {
     private String username;
     private String password;
 
+    @OneToOne(mappedBy = "user")
     private Student student;
+
     @OneToOne(mappedBy = "user")
     private Teacher teacher;
 

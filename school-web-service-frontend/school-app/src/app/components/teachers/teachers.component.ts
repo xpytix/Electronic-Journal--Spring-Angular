@@ -4,7 +4,8 @@ import { NgForm} from '@angular/forms'
 import { Course } from '../../shared/course';
 import { Teacher } from '../../shared/teacher';
 import { TeachersService } from '../../core/service/teachers.service';
-
+import { FormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-teachers',
@@ -16,7 +17,9 @@ export class TeachersComponent implements OnInit {
   public editTeacher!: Teacher;
   public deleteTeacher!: Teacher;
   title = 'school-app';
-  constructor(private teachersService: TeachersService){}
+  isLoginFailed = false;
+  errorMessage = '';
+  constructor(private authService: AuthService, private teachersService: TeachersService){}
   ngOnInit(): void {
     this.getTeachers();
     
@@ -44,6 +47,28 @@ export class TeachersComponent implements OnInit {
       }
     )
   }
+  public registerNewTeacher(addForm:NgForm):void{
+
+    let user = { username: addForm.controls.username.value, password: addForm.controls.password.value, role: [addForm.controls.role.value.toString()]}
+    console.log(user);
+    console.log(addForm.value);
+    this.authService.registerTeacher(user, addForm.value).subscribe(
+      
+      data => {
+
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
+  }
+  
+  reloadPage() {
+    window.location.reload();
+  }
+
   public onUpdateTeacher(teacher: Teacher): void {     
     this.teachersService.updateTeacher(teacher).subscribe(
       (response: Teacher) => {

@@ -16,4 +16,9 @@ public class UserDto {
     private String password;
 
     private String role;
+
+    public UserDto(String username, String password) {
+        username = username;
+        password = password;
+    }
 }

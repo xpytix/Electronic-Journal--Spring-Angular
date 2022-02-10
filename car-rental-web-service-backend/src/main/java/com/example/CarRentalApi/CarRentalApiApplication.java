@@ -28,15 +28,18 @@ public class CarRentalApiApplication {
             CreditRepository creditRepository, StudentRepository studentRepository, RoleRepository roleRepository,
             TeacherRepository teacherRepository, UserRepository userRepository,PasswordEncoder passwordEncoder) {
         return args -> {
-            User user1 = new User("user1", "admin");
 
             Role role = new Role(ERole.ROLE_ADMIN);
             roleRepository.save(role);
+
+            User user1 = new User("user1", "admin");
             user1.getRoles().add(role);
             user1.setPassword(passwordEncoder.encode("admin"));
-            User user2 = new User("user2", "ROLE_ADMIN");
 
+            User user2 = new User("user2", "admin");
             user2.setPassword(passwordEncoder.encode("admin"));
+            user2.getRoles().add(role);
+
 
             Teacher teacherJozef = new Teacher("jozef@gmail.com", "Jozef", "Bomba", "13.01.1992");
             Teacher teacherAndrzej = new Teacher("andrzeja@gmail.com", "Andrzej", "Nuda", "1.11.2009");
