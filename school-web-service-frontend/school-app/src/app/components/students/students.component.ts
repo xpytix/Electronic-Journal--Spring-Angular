@@ -64,7 +64,7 @@ export class StudentsComponent implements OnInit {
     let user = { username: addForm.controls.username.value, password: addForm.controls.password.value, role: [addForm.controls.role.value.toString()]}
     console.log(user);
     console.log(addForm.value);
-    this.authService.register(user, addForm.value).subscribe(
+    this.authService.registerStudent(user, addForm.value).subscribe(
       
       data => {
 
