@@ -6,6 +6,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class TeacherDtoRegister {
     private Long id;
     @Size(min = 2, message = "email should be at least 5 characters")

@@ -55,7 +55,6 @@ export class TeachersComponent implements OnInit {
     this.authService.registerTeacher(user, addForm.value).subscribe(
       
       data => {
-
         this.reloadPage();
       },
       err => {

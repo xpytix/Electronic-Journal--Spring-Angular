@@ -8,12 +8,13 @@
             <h5 class="my-3">School App</h5>
             <div class="fm-menu">
                 <div class="list-group list-group-flush"> 
-                    <a *ngIf="!isLoggedIn" href="javascript:;" class="list-group-item py-1" routerLink="/login"><i class="bx bx-open me-2"></i><span>Login</span></a>
-                    <a *ngIf="isLoginFailed" class="nav-link" (click)="logout()">LogOut</a>
+                    <a *ngIf="isLoggedIn" href="javascript:;" class="list-group-item py-1" routerLink="/login"><i class="bx bx-open me-2"></i><span>Login</span></a>
+                    <a *ngIf="!isLoggedIn" class="nav-link" (click)="logout()">LogOut</a>
                     <a href="javascript:;" class="list-group-item py-1" routerLink="/students"><i class="bx bx-folder me-2"></i><span>Students</span></a>
                     <a href="javascript:;" class="list-group-item py-1" routerLink="/teachers"><i class="bx bx-devices me-2"></i><span>Teachers</span></a>
                     <a href="javascript:;" class="list-group-item py-1" routerLink="/courses"><i class="bx bx-analyse me-2"></i><span>Courses</span></a>
                     <a href="javascript:;" class="list-group-item py-1" routerLink="/categories"><i class="bx bx-plug me-2"></i><span>Categories</span></a>
+                    <a href="javascript:;" class="list-group-item py-1" (click) ="checkUserAccount()" *ngIf="isLoggedIn"><span>{{userLogged}}</span></a>
                 </div>
             </div>
         </div>

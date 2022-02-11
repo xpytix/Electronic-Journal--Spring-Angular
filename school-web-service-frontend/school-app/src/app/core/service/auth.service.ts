@@ -39,7 +39,9 @@ export class AuthService {
      
     }, httpOptions);
   }
-  registerTeacher(user: { username: any; password: any; role: any}, teacher: Teacher): Observable<any> {
+  registerTeacher(user: { username: any; password: any; role: any}, teacher: Teacher): Observable<any> {    
+  
+  console.log(teacher.email);
     return this.http.post(AUTH_API + 'signupTeacher', {
       teacherDtoRegister: {
         email: teacher.email,
@@ -52,7 +54,6 @@ export class AuthService {
       password: user.password,
       role: user.role,
     }
-     
     }, httpOptions);
   }
 
